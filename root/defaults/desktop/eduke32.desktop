@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=EDuke32
+Comment=Advanced Duke Nukem 3D engine
+Icon=eduke32
+Exec=/usr/bin/foot -e /usr/games/eduke32
+Categories=Game;Shooter;

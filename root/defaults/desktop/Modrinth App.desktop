@@ -1,0 +1,8 @@
+[Desktop Entry]
+Categories=Game;
+Exec=/usr/bin/foot -e /usr/bin/ModrinthApp
+Icon=ModrinthApp
+Name=Modrinth App
+Terminal=false
+Type=Application
+MimeType=application/x-modrinth-modpack+zip;x-scheme-handler/modrinth

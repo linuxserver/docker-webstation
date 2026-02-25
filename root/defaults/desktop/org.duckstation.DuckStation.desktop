@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=DuckStation
+GenericName=PlayStation 1 Emulator
+Comment=Fast PlayStation 1 emulator
+Icon=/opt/duckstation/org.duckstation.DuckStation.png
+Exec=/usr/bin/foot -e /opt/duckstation/AppRun %f
