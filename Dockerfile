@@ -34,6 +34,7 @@ RUN \
     libenet7 \
     libfaad2 \
     libgtk-3-common \
+    libopenal1 \
     libqt6multimedia6 \
     libqt6svg6 \
     libqt6svgwidgets6 \
