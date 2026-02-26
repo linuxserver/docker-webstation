@@ -238,6 +238,19 @@ RUN \
   mv \
     squashfs-root \
     /opt/shadps4 && \
+  PKG_URL=$(curl -sX GET "https://api.github.com/repos/AzaharPlus/shadPS4Plus/releases/latest" \
+    | awk -F '(": "|")' '/browser.*linux.zip/ {print $3}') && \
+  curl -o \
+    /tmp/pkg.zip -L \
+    "${PKG_URL}" && \
+  cd /tmp && \
+  unzip pkg.zip && \
+  cd ShadPs4Plus-PkgExtractor* && \
+  chmod +x pkg_extractor.AppImage && \
+  ./pkg_extractor.AppImage --appimage-extract && \
+  mv \
+    squashfs-root/usr/bin/pkg_extractor \
+    /usr/local/bin/ && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
