@@ -53,5 +53,12 @@ if [ ! -f "${HOME}/.darkplaces/id1/pak0.pak" ]; then
     /pak0.pak \
     "${HOME}/.darkplaces/id1/pak0.pak"
 fi
+# shadPS4
+if [ ! -d "$HOME/.local/share/shadPS4" ]; then
+  mkdir -p "$HOME/.local/share/shadPS4"
+  cp \
+    /defaults/config.toml \
+    "$HOME/.local/share/shadPS4/"
+fi
 
 dbus-run-session startlxqt > /dev/null 2>&1

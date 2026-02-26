@@ -1,0 +1,85 @@
+[General]
+defaultControllerID = ""
+enableDiscordRPC = false
+isConnectedToNetwork = false
+isDevKit = false
+isPS4Pro = false
+isPSNSignedIn = false
+isTrophyPopupDisabled = false
+logFilter = ""
+logType = "sync"
+showSplash = false
+sideTrophy = "right"
+sysModulesPath = ""
+trophyNotificationDuration = 6.0
+userName = "shadPS4"
+volumeSlider = 100
+
+[Input]
+backgroundControllerInput = false
+cursorHideTimeout = 5
+cursorState = 1
+isMotionControlsEnabled = true
+specialPadClass = 1
+usbDeviceBackend = 0
+useSpecialPad = false
+useUnifiedInputConfig = true
+
+[Audio]
+mainOutputDevice = "Default Device"
+micDevice = "Default Device"
+padSpkOutputDevice = "Default Device"
+
+[GPU]
+allowHDR = false
+copyGPUBuffers = false
+directMemoryAccess = false
+dumpShaders = false
+fsrEnabled = false
+Fullscreen = false
+FullscreenMode = "Windowed"
+internalScreenHeight = 720
+internalScreenWidth = 1280
+nullGpu = false
+patchShaders = false
+presentMode = "Mailbox"
+rcasAttenuation = 250
+rcasEnabled = true
+readbackLinearImages = false
+readbacks = false
+screenHeight = 720
+screenWidth = 1280
+vblankFrequency = 60
+
+[Vulkan]
+crashDiagnostic = false
+gpuId = -1
+guestMarkers = false
+hostMarkers = false
+pipelineCacheArchive = false
+pipelineCacheEnable = false
+rdocEnable = false
+validation = false
+validation_core = true
+validation_gpu = false
+validation_sync = false
+
+[Debug]
+CollectShader = false
+ConfigVersion = "6c1ca0800249cf5841a31937c74fae8dcd837114"
+DebugDump = false
+isSeparateLogFilesEnabled = false
+logEnabled = true
+showFpsCounter = false
+
+[Keys]
+TrophyKey = ""
+
+[GUI]
+addonInstallDir = "/config/.local/share/shadPS4/addcont"
+installDirs = ["/config"]
+installDirsEnabled = [true]
+saveDataPath = ""
+
+[Settings]
+consoleLanguage = 1

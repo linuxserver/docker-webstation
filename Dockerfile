@@ -223,6 +223,21 @@ RUN \
   mv \
     squashfs-root \
     /opt/esde && \
+  echo "**** install shadps4qt ****" && \
+  mkdir /tmp/shadps4 && \
+  SHADPS4_VERSION=$(curl -sX GET "https://api.github.com/repos/shadps4-emu/shadps4-qtlauncher/releases" \
+    | awk '/tag_name/{print $4;exit}' FS='[""]') && \
+  SHORT_VERSION=$(echo "$SHADPS4_VERSION" | sed 's/shadPS4QtLauncher-//' | cut -c 1-18) && \
+  curl -o \
+    /tmp/shadps4/shad.zip -L \
+    "https://github.com/shadps4-emu/shadps4-qtlauncher/releases/download/${SHADPS4_VERSION}/shadPS4QtLauncher-linux-qt-${SHORT_VERSION}.zip" && \
+  cd /tmp/shadps4 && \
+  unzip shad.zip && \
+  chmod +x shadPS4QtLauncher-qt.AppImage && \
+  ./shadPS4QtLauncher-qt.AppImage --appimage-extract && \
+  mv \
+    squashfs-root \
+    /opt/shadps4 && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
