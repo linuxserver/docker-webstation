@@ -35,7 +35,7 @@ Find us at:
 [![Docker Pulls](https://img.shields.io/docker/pulls/linuxserver/webstation.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=pulls&logo=docker)](https://hub.docker.com/r/linuxserver/webstation)
 [![Docker Stars](https://img.shields.io/docker/stars/linuxserver/webstation.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=stars&logo=docker)](https://hub.docker.com/r/linuxserver/webstation)
 [![Jenkins Build](https://img.shields.io/jenkins/build?labelColor=555555&logoColor=ffffff&style=for-the-badge&jobUrl=https%3A%2F%2Fci.linuxserver.io%2Fjob%2FDocker-Pipeline-Builders%2Fjob%2Fdocker-webstation%2Fjob%2Fmaster%2F&logo=jenkins)](https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webstation/job/master/)
-[![LSIO CI](https://img.shields.io/badge/dynamic/yaml?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=CI&query=CI&url=https%3A%2F%2Fci-tests.linuxserver.io%2Flinuxserver%2Fwebstation%2Fmaster%2Fci-status.yml)](https://ci-tests.linuxserver.io/linuxserver/webstation/master/index.html)
+[![LSIO CI](https://img.shields.io/badge/dynamic/yaml?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=CI&query=CI&url=https%3A%2F%2Fci-tests.linuxserver.io%2Flinuxserver%2Fwebstation%2Flatest%2Fci-status.yml)](https://ci-tests.linuxserver.io/linuxserver/webstation/latest/index.html)
 
 [Webstation](https://github.com/linuxserver/docker-webstation) is a web native emulation focused LXQt desktop based on Ubuntu.
 
@@ -45,7 +45,7 @@ Find us at:
 
 We utilise the docker manifest for multi-platform awareness. More information is available from docker [here](https://distribution.github.io/distribution/spec/manifest-v2-2/#manifest-list) and our announcement [here](https://blog.linuxserver.io/2019/02/21/the-lsio-pipeline-project/).
 
-Simply pulling `lscr.io/linuxserver/webstation:master` should retrieve the correct image for your arch, but you can also pull specific arch images via tags.
+Simply pulling `lscr.io/linuxserver/webstation:latest` should retrieve the correct image for your arch, but you can also pull specific arch images via tags.
 
 The architectures supported by this image are:
 
@@ -144,7 +144,7 @@ For Intel and AMD GPUs.
 ---
 services:
   webstation:
-    image: lscr.io/linuxserver/webstation:master
+    image: lscr.io/linuxserver/webstation:latest
     environment:
       - PIXELFLUX_WAYLAND=true
       # Ensure these point to the rendered node injected by the runtime (usually renderD128)
@@ -407,7 +407,7 @@ To help you get started creating a container from this image you can either use 
 ---
 services:
   webstation:
-    image: lscr.io/linuxserver/webstation:master
+    image: lscr.io/linuxserver/webstation:latest
     container_name: webstation
     environment:
       - PUID=1000
@@ -435,7 +435,7 @@ docker run -d \
   -v /path/to/config:/config \
   --shm-size="1gb" \
   --restart unless-stopped \
-  lscr.io/linuxserver/webstation:master
+  lscr.io/linuxserver/webstation:latest
 ```
 
 ## Parameters
@@ -516,7 +516,7 @@ We publish various [Docker Mods](https://github.com/linuxserver/docker-mods) to 
 * Image version number:
 
     ```bash
-    docker inspect -f '{{ index .Config.Labels "build_version" }}' lscr.io/linuxserver/webstation:master
+    docker inspect -f '{{ index .Config.Labels "build_version" }}' lscr.io/linuxserver/webstation:latest
     ```
 
 ## Updating Info
@@ -564,7 +564,7 @@ Below are the instructions for updating containers:
 * Update the image:
 
     ```bash
-    docker pull lscr.io/linuxserver/webstation:master
+    docker pull lscr.io/linuxserver/webstation:latest
     ```
 
 * Stop the running container:
@@ -601,7 +601,7 @@ cd docker-webstation
 docker build \
   --no-cache \
   --pull \
-  -t lscr.io/linuxserver/webstation:master .
+  -t lscr.io/linuxserver/webstation:latest .
 ```
 
 The ARM variants can be built on x86_64 hardware and vice versa using `lscr.io/linuxserver/qemu-static`

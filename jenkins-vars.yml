@@ -4,7 +4,7 @@
 project_name: docker-webstation
 external_type: os
 release_type: stable
-release_tag: master
+release_tag: latest
 ls_branch: master
 build_armhf: false
 repo_vars:
