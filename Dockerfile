@@ -28,6 +28,7 @@ RUN \
     darkplaces \
     eduke32 \
     eduke32-shareware-episode \
+    featherpad \
     gnome-keyring \
     ibsdl2-2.0-0 \
     jstest-gtk \
@@ -252,6 +253,34 @@ RUN \
   mv \
     squashfs-root/usr/bin/pkg_extractor \
     /usr/local/bin/ && \
+  echo "**** install cemu ****" && \
+  mkdir /tmp/cemu && \
+  CEMU_URL=$(curl -sX GET "https://api.github.com/repos/cemu-project/Cemu/releases/latest" \
+    | awk -F '(": "|")' '/browser.*ubuntu-22.04-x64.zip/ {print $3}') && \
+  curl -o \
+    /tmp/cemu/cemu.zip -L \
+    "${CEMU_URL}" && \
+  cd /tmp/cemu && \
+  unzip cemu.zip && \
+  mv \
+    Cemu* \
+    /opt/cemu && \
+  chmod +x \
+    /opt/cemu/Cemu && \
+  echo "**** install flips ****" && \
+  mkdir /tmp/flips && \
+  FLIPS_URL=$(curl -sX GET "https://api.github.com/repos/Alcaro/Flips/releases/latest" \
+    | awk -F '(": "|")' '/browser.*-linux.zip/ {print $3}') && \
+  curl -o \
+    /tmp/flips/flips.zip -L \
+    "${FLIPS_URL}" && \
+  cd /tmp/flips && \
+  unzip flips.zip && \
+  mv \
+    flips \
+    /usr/local/bin/ && \
+  chmod +x \
+    /usr/local/bin/flips && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \

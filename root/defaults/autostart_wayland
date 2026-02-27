@@ -60,5 +60,12 @@ if [ ! -d "$HOME/.local/share/shadPS4" ]; then
     /defaults/config.toml \
     "$HOME/.local/share/shadPS4/"
 fi
+# Cemu
+if [ ! -f "${HOME}/.config/Cemu/controllerProfiles/controller0.xml" ]; then
+  mkdir -p "${HOME}/.config/Cemu/controllerProfiles"
+  cp \
+    /defaults/controller0.xml \
+    "${HOME}/.config/Cemu/controllerProfiles/controller0.xml"
+fi
 
 dbus-run-session startlxqt > /dev/null 2>&1
