@@ -1,0 +1,71 @@
+## Emu setups ##
+# Retroarch
+if [ ! -d "${HOME}/.config/retroarch" ]; then
+  mkdir -p ${HOME}/.config/retroarch
+  cp -r /usr/share/libretro/* ${HOME}/.config/retroarch/
+  mv ${HOME}/.config/retroarch/info ${HOME}/.config/retroarch/cores
+  echo 'video_refresh_rate = "60.000000"' > ${HOME}/.config/retroarch/retroarch.cfg
+  echo 'vrr_runloop_enable = "true"' >> ${HOME}/.config/retroarch/retroarch.cfg
+fi
+# Dolphin
+if [ ! -f "${HOME}/.config/dolphin-emu/GCPadNew.ini" ]; then
+  mkdir -p "${HOME}/.config/dolphin-emu/"
+  cp /defaults/GCPadNew.ini "${HOME}/.config/dolphin-emu/"
+fi
+# Eden
+if [ ! -f "${HOME}/.config/eden/qt-config.ini" ]; then
+  mkdir -p "${HOME}/.config/eden/"
+  cp /defaults/eden-config.ini "${HOME}/.config/eden/qt-config.ini"
+fi
+# GZDoom
+if [ ! -f "${HOME}/.config/gzdoom/gzdoom.ini" ]; then
+  mkdir -p "${HOME}/.config/gzdoom"
+  cp \
+    /defaults/gzdoom.ini \
+    "${HOME}/.config/gzdoom/gzdoom.ini"
+  cp \
+    /defaults/freedoom1.wad \
+    "${HOME}/"
+fi
+# MAME
+if [ ! -f "${HOME}/.mame/mame.ini" ]; then
+  mkdir -p "${HOME}/.mame"
+  cp \
+    /defaults/mame.ini \
+    "${HOME}/.mame/mame.ini"
+fi
+# PPSSPP
+if [ ! -f "$HOME/.config/ppsspp/PSP/SYSTEM/ppsspp.ini" ]; then
+  mkdir -p "$HOME/.config/ppsspp/PSP/SYSTEM"
+  cp /defaults/ppsspp.ini "$HOME/.config/ppsspp/PSP/SYSTEM/ppsspp.ini"
+fi
+# RPCS3
+if [ ! -f "${HOME}/.config/rpcs3/input_configs/global/Default.yml" ]; then
+  mkdir -p "${HOME}/.config/rpcs3/input_configs/global/"
+  cp \
+    /defaults/Default.yml \
+    "${HOME}/.config/rpcs3/input_configs/global/Default.yml"
+fi
+# Quake
+if [ ! -f "${HOME}/.darkplaces/id1/pak0.pak" ]; then
+  mkdir -p "${HOME}/.darkplaces/id1"
+  cp \
+    /pak0.pak \
+    "${HOME}/.darkplaces/id1/pak0.pak"
+fi
+# shadPS4
+if [ ! -d "$HOME/.local/share/shadPS4" ]; then
+  mkdir -p "$HOME/.local/share/shadPS4"
+  cp \
+    /defaults/config.toml \
+    "$HOME/.local/share/shadPS4/"
+fi
+# Cemu
+if [ ! -f "${HOME}/.config/Cemu/controllerProfiles/controller0.xml" ]; then
+  mkdir -p "${HOME}/.config/Cemu/controllerProfiles"
+  cp \
+    /defaults/controller0.xml \
+    "${HOME}/.config/Cemu/controllerProfiles/controller0.xml"
+fi
+
+dbus-run-session startlxqt > /dev/null 2>&1
