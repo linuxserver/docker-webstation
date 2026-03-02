@@ -614,4 +614,5 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **02.03.26:** - Fix init to not use session wrapper.
 * **25.02.26:** - Initial Version.
