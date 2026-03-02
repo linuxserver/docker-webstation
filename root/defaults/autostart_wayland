@@ -68,4 +68,4 @@ if [ ! -f "${HOME}/.config/Cemu/controllerProfiles/controller0.xml" ]; then
     "${HOME}/.config/Cemu/controllerProfiles/controller0.xml"
 fi
 
-dbus-run-session startlxqt > /dev/null 2>&1
+dbus-run-session /startui.sh
