@@ -119,12 +119,12 @@ RUN \
     /opt/duckstation && \
   echo "**** install eden ****" && \
   if [ -z ${EDEN_VERSION+x} ]; then \
-    EDEN_VERSION=$(curl -sX GET "https://api.github.com/repos/eden-emulator/Releases/releases/latest" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]'); \
+    EDEN_VERSION=$(curl -sX GET "https://git.eden-emu.dev/api/v1/repos/eden-emu/eden/releases/latest" \
+    | awk '/tag_name/{print $6;exit}' FS='[""]'); \
   fi && \
   curl -o \
     /tmp/eden.deb -L \
-    "https://github.com/eden-emulator/Releases/releases/download/${EDEN_VERSION}/Eden-Ubuntu-24.04-${EDEN_VERSION}-amd64.deb" && \
+    "https://git.eden-emu.dev/eden-emu/eden/releases/download/${EDEN_VERSION}/Eden-Debian-13-${EDEN_VERSION}-amd64.deb" && \
   apt-get install -y \
     /tmp/eden.deb && \
   echo "**** install flycast ****" && \

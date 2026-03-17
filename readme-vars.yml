@@ -108,5 +108,6 @@ init_diagram: |
   "webstation:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "17.03.26:", desc: "Fix eden ingestion to use self hosted git."}
   - {date: "02.03.26:", desc: "Fix init to not use session wrapper."}
   - {date: "25.02.26:", desc: "Initial Version."}
