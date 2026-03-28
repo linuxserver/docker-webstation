@@ -10,6 +10,7 @@ LABEL maintainer="thelamer"
 ENV TITLE="Webstation" \
     NO_FULL=true \
     PIXELFLUX_WAYLAND=true \
+    SELKIES_DESKTOP=true \
     DOOMWADDIR="/config"
 
 RUN \
@@ -36,20 +37,13 @@ RUN \
     libfaad2 \
     libgtk-3-common \
     libopenal1 \
-    libqt6multimedia6 \
     libqt6svg6 \
-    libqt6svgwidgets6 \
-    libqt6widgets6 \
     libusb-1.0-0 \
-    lxqt-archiver \
-    lxqt-core \
+    pcmanfm-qt \
     p7zip-full \
     p7zip-rar \
     papirus-icon-theme && \
-  echo "**** lxqt tweaks ****" && \
-  sed -i \
-    's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
-    /usr/share/applications/chromium.desktop && \
+  echo "**** chromium wrapper ****" && \
   mv \
     /usr/bin/chromium \
     /usr/bin/chromium-browser && \
@@ -124,7 +118,7 @@ RUN \
   fi && \
   curl -o \
     /tmp/eden.deb -L \
-    "https://git.eden-emu.dev/eden-emu/eden/releases/download/${EDEN_VERSION}/Eden-Debian-13-${EDEN_VERSION}-amd64.deb" && \
+    "https://git.eden-emu.dev/eden-emu/eden/releases/download/${EDEN_VERSION}/Eden-Ubuntu-24.04-${EDEN_VERSION}-amd64.deb" && \
   apt-get install -y \
     /tmp/eden.deb && \
   echo "**** install flycast ****" && \
@@ -185,7 +179,7 @@ RUN \
     | awk -F '(": "|")' '/browser.*AppImage/ {print $3}') && \
   curl -o \
     /tmp/rpcs3.app -L \
-    "${RPCS3_URL}" && \
+    "https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-6451c4d49fdf87380df65bd834d6582a1b6acde6/rpcs3-v0.0.37-18156-6451c4d4_linux64.AppImage" && \
   cd /tmp && \
   chmod +x rpcs3.app && \
   ./rpcs3.app --appimage-extract && \
@@ -193,8 +187,8 @@ RUN \
     AppDir \
     /opt/rpcs3 && \
   echo "**** install scummvm ****" && \
-  SCUMMVM_VERSION=$(curl -s https://downloads.scummvm.org/frs/scummvm/ \
-    | awk -F'(<a href="|/">)' '{print $2}'| grep -B 1 'daily' |head -n1) && \
+  SCUMMVM_VERSION=$(curl -sX GET "https://api.github.com/repos/scummvm/scummvm/releases/latest" \
+    | awk '/tag_name/{print $4;exit}' FS='[""]' | sed 's/^v//g') && \
   curl -o \
     /tmp/scummvm.deb -L \
     "https://downloads.scummvm.org/frs/scummvm/${SCUMMVM_VERSION}/scummvm_${SCUMMVM_VERSION}-1_ubuntu24_04_amd64.deb" && \
@@ -287,14 +281,7 @@ RUN \
     /config/.cache \
     /config/.launchpadlib \
     /tmp/* \
-    /usr/share/applications/lxqt-config-monitor.desktop \
-    /usr/share/applications/lxqt-hibernate.desktop \
-    /usr/share/applications/lxqt-leave.desktop \
-    /usr/share/applications/lxqt-lockscreen.desktop \
-    /usr/share/applications/lxqt-logout.desktop \
-    /usr/share/applications/lxqt-reboot.desktop \
-    /usr/share/applications/lxqt-shutdown.desktop \
-    /usr/share/applications/lxqt-suspend.desktop \
+    /usr/share/applications/pcmanfm-qt-desktop-pref.desktop \
     /var/lib/apt/lists/* \
     /var/tmp/* 
 
