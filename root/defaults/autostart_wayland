@@ -67,5 +67,3 @@ if [ ! -f "${HOME}/.config/Cemu/controllerProfiles/controller0.xml" ]; then
     /defaults/controller0.xml \
     "${HOME}/.config/Cemu/controllerProfiles/controller0.xml"
 fi
-
-dbus-run-session /startui.sh
