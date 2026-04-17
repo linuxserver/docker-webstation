@@ -197,11 +197,9 @@ RUN \
     /tmp/scummvm.deb && \
   echo "**** install xemu ****" && \
   mkdir /tmp/xemu && \
-  XEMU_URL=$(curl -sX GET "https://api.github.com/repos/xemu-project/xemu/releases/latest" \
-    | awk -F '(": "|")' '/browser.*x86_64.AppImage/ && !/.*dbg.*/ {print $3}') && \
   curl -o \
     /tmp/xemu/xemu.app -L \
-    "${XEMU_URL}" && \
+    "https://github.com/xemu-project/xemu/releases/download/v0.8.133/xemu-0.8.133-x86_64.AppImage" && \
   cd /tmp/xemu && \
   chmod +x xemu.app && \
   ./xemu.app --appimage-extract && \
