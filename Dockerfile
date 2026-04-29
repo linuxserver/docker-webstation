@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-selkies:ubuntunoble
+FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute
 
 # set version label
 ARG BUILD_DATE
@@ -41,8 +41,8 @@ RUN \
     libusb-1.0-0 \
     pcmanfm-qt \
     p7zip-full \
-    p7zip-rar \
-    papirus-icon-theme && \
+    papirus-icon-theme \
+    unrar && \
   echo "**** chromium wrapper ****" && \
   mv \
     /usr/bin/chromium \
@@ -56,16 +56,13 @@ RUN \
   add-apt-repository ppa:pcsx2-team/pcsx2-daily && \
   apt-get update && \
   apt-get install --no-install-recommends -y \
-    pcsx2-stable && \
-  setcap -r /usr/bin/pcsx2-qt && \
+    pcsx2 && \
   echo "**** install ppsspp ****" && \
   add-apt-repository ppa:xuzhen666/ppsspp && \
   apt-get update && \
   apt-get install --no-install-recommends -y \
     ppsspp && \
   echo "**** install mame ****" && \
-  add-apt-repository ppa:c.falco/mame && \
-  apt-get update && \
   apt-get install --no-install-recommends -y \
     mame && \
   echo "**** install retroarch ****" && \
@@ -187,14 +184,8 @@ RUN \
     AppDir \
     /opt/rpcs3 && \
   echo "**** install scummvm ****" && \
-  SCUMMVM_VERSION=$(curl -sX GET "https://api.github.com/repos/scummvm/scummvm/releases/latest" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]' | sed 's/^v//g') && \
-  curl -o \
-    /tmp/scummvm.deb -L \
-    "https://downloads.scummvm.org/frs/scummvm/${SCUMMVM_VERSION}/scummvm_${SCUMMVM_VERSION}-1_ubuntu24_04_amd64.deb" && \
-  apt-get update && \
   apt-get install -y \
-    /tmp/scummvm.deb && \
+    scummvm && \
   echo "**** install xemu ****" && \
   mkdir /tmp/xemu && \
   curl -o \
@@ -279,7 +270,12 @@ RUN \
     /config/.cache \
     /config/.launchpadlib \
     /tmp/* \
+    /usr/share/applications/debian-uxterm.desktop \
+    /usr/share/applications/debian-xterm.desktop \
+    /usr/share/applications/foot-server.desktop \
+    /usr/share/applications/footclient.desktop \
     /usr/share/applications/pcmanfm-qt-desktop-pref.desktop \
+    /usr/share/applications/st.desktop \
     /var/lib/apt/lists/* \
     /var/tmp/* 
 

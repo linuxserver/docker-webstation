@@ -57,7 +57,7 @@ fi
 if [ ! -d "$HOME/.local/share/shadPS4" ]; then
   mkdir -p "$HOME/.local/share/shadPS4"
   cp \
-    /defaults/config.toml \
+    /defaults/config.json \
     "$HOME/.local/share/shadPS4/"
 fi
 # Cemu

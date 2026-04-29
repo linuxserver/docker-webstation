@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Default files
-if [ ! -f "${HOME}"/Desktop/PCSX2.desktop ]; then
+if [ ! -f "${HOME}"/Desktop/pcsx2-qt.desktop ]; then
   mkdir -p "${HOME}"/Desktop
   cp /defaults/desktop/* "${HOME}"/Desktop
   sudo cp /defaults/desktop/* /usr/share/applications/
