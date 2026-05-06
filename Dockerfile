@@ -29,10 +29,13 @@ RUN \
 
 RUN \
   echo "**** build dolphin ****" && \
+  DOLPHIN_VERSION=$(curl -sL 'https://dolphin-emu.org/download/' \
+    | awk -F '(dolphin-|-x86_64.flatpak)' '/-x86_64.flatpak/ {print $3;exit}') && \
   mkdir /root-out && \
   git clone https://github.com/dolphin-emu/dolphin.git && \
   cd dolphin && \
-  git checkout -f $(git describe --tags --abbrev=0) && \
+  echo "**** building dolphin at ${DOLPHIN_VERSION} ****" && \
+  git checkout -f ${DOLPHIN_VERSION} && \
   git submodule update --init --recursive && \
   mkdir build && \
   cd build && \
