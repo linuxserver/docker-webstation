@@ -1,4 +1,155 @@
-FROM ghcr.io/linuxserver/baseimage-selkies:ubuntunoble
+FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute AS dolphin
+
+RUN \
+  echo "**** install build deps ****" && \
+  apt-get update && \
+  apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    libavcodec-dev \
+    libavformat-dev \
+    libavutil-dev \
+    libcurl4-openssl-dev \
+    libegl1-mesa-dev \
+    libevdev-dev \
+    libpulse-dev \
+    libqt6svg6-dev \
+    libswscale-dev \
+    libudev-dev \
+    libvulkan-dev \
+    libx11-dev \
+    libxi-dev \
+    libxrandr-dev \
+    pkg-config \
+    qt6-base-dev \
+    qt6-base-private-dev \
+    qt6-wayland-dev \
+    qt6-wayland-private-dev
+
+RUN \
+  echo "**** build dolphin ****" && \
+  DOLPHIN_VERSION=$(curl -sL 'https://dolphin-emu.org/download/' \
+    | awk -F '(dolphin-|-x86_64.flatpak)' '/-x86_64.flatpak/ {print $3;exit}') && \
+  mkdir /root-out && \
+  git clone https://github.com/dolphin-emu/dolphin.git && \
+  cd dolphin && \
+  echo "**** building dolphin at ${DOLPHIN_VERSION} ****" && \
+  git checkout -f ${DOLPHIN_VERSION} && \
+  git submodule update --init --recursive && \
+  mkdir build && \
+  cd build && \
+  cmake .. && \
+  make -j16 && \
+  make install DESTDIR=/root-out
+
+FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute AS eden
+
+RUN \
+  echo "**** install build deps ****" && \
+  apt-get update && \
+  apt-get install -y \
+    autoconf \
+    cmake \
+    g++ \
+    gcc \
+    git \
+    glslang-tools \
+    libasound2t64 \
+    libavcodec-dev \
+    libavfilter-dev \
+    libboost-context-dev \
+    libboost-fiber-dev \
+    libcpp-httplib-dev \
+    libcpp-jwt-dev \
+    libcubeb-dev \
+    libenet-dev \
+    libfmt-dev \
+    libglu1-mesa-dev \
+    libhidapi-dev \
+    liblz4-dev \
+    libopus-dev \
+    libpulse-dev \
+    libqt6core5compat6 \
+    libquazip1-qt6-dev \
+    libsdl2-dev \
+    libsimpleini-dev \
+    libssl-dev \
+    libswscale-dev \
+    libtool \
+    libudev-dev \
+    libusb-1.0-0-dev \
+    libva-dev \
+    libvdpau-dev \
+    libvulkan-dev \
+    libxcb-icccm4 \
+    libxcb-image0 \
+    libxcb-keysyms1 \
+    libxcb-render-util0 \
+    libxcb-xinerama0 \
+    libxcb-xkb1 \
+    libxext-dev \
+    libxkbcommon-x11-0 \
+    libzstd-dev \
+    mesa-common-dev \
+    nasm \
+    ninja-build \
+    nlohmann-json3-dev \
+    patch \
+    pkg-config \
+    qt6-base-private-dev \
+    qt6-charts-dev \
+    qt6-multimedia-dev \
+    qt6-tools-dev \
+    qt6-webengine-dev \
+    spirv-headers \
+    spirv-tools \
+    spirv-tools-dev \
+    vulkan-utility-libraries-dev \
+    zlib1g-dev
+
+RUN \
+  echo "**** build eden ****" && \
+  mkdir -p /root-out/usr/bin && \
+  mkdir -p /root-out/usr/share/icons/hicolor/scalable/apps/ && \
+  EDEN_VERSION=$(curl -sX GET 'https://git.eden-emu.dev/api/v1/repos/eden-emu/eden/releases/latest' \
+    | awk '/tag_name/{print $6;exit}' FS='[""]') && \
+  git clone https://git.eden-emu.dev/eden-emu/eden.git && \
+  cd eden/ && \
+  git checkout -f ${EDEN_VERSION} && \
+  cmake -B build -GNinja \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_C_FLAGS="-march=x86-64-v3 -O2" \
+    -DCMAKE_CXX_FLAGS="-march=x86-64-v3 -O2" \
+    -DUSE_DISCORD_PRESENCE=ON \
+    -DYUZU_ENABLE_LTO=OFF \
+    -DYUZU_USE_CPM=OFF \
+    -DCPM_USE_LOCAL_PACKAGES=ON \
+    -DYUZU_USE_BUNDLED_FFMPEG=OFF \
+    -DYUZU_USE_BUNDLED_SDL2=OFF \
+    -DYUZU_USE_EXTERNAL_SDL2=OFF \
+    -DYUZU_USE_BUNDLED_QT=OFF \
+    -DENABLE_QT_TRANSLATION=ON \
+    -DYUZU_USE_QT_MULTIMEDIA=ON \
+    -DYUZU_USE_QT_WEB_ENGINE=ON \
+    -Dhttplib_FORCE_BUNDLED=ON \
+    -DTITLE_BAR_FORMAT_RUNNING="eden | ${EDEN_VERSION} {}" \
+    -DTITLE_BAR_FORMAT_IDLE="eden ${EDEN_VERSION} {}" \
+    -DYUZU_TESTS=OFF \
+    -DDYNARMIC_TESTS=OFF \
+    -DBUILD_TESTING=OFF \
+    -Wno-dev && \
+  cmake --build build && \
+  mv \
+    build/bin/* \
+    /root-out/usr/bin/ && \
+  mv \
+    dist/icon_variations/base.svg \
+    /root-out/usr/share/icons/hicolor/scalable/apps/dev.eden_emu.eden.svg
+
+# runtime stage
+FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute
 
 # set version label
 ARG BUILD_DATE
@@ -33,31 +184,44 @@ RUN \
     gnome-keyring \
     ibsdl2-2.0-0 \
     jstest-gtk \
+    libavcodec62 \
+    libboost-context1.90.0 \
+    libboost-filesystem1.90.0 \
+    libcubeb0 \
+    libenet7 \
     libenet7 \
     libfaad2 \
+    libfmt10 \
     libgtk-3-common \
+    liblz4-1 \
     libopenal1 \
+    libopus0 \
+    libqt6charts6 \
+    libqt6multimedia6 \
     libqt6svg6 \
+    libqt6webenginewidgets6 \
+    libquazip1-qt6-1t64 \
+    libsdl2-2.0-0 \
+    libsimpleini1t64 \
+    libssl3t64 \
     libusb-1.0-0 \
-    pcmanfm-qt \
+    libusb-1.0-0 \
+    libxcb-cursor0 \
+    libzstd1 \
     p7zip-full \
-    p7zip-rar \
-    papirus-icon-theme && \
+    papirus-icon-theme \
+    pcmanfm-qt \
+    qt6-wayland \
+    unrar && \
   echo "**** chromium wrapper ****" && \
   mv \
     /usr/bin/chromium \
     /usr/bin/chromium-browser && \
-  echo "**** install dolphin ****" && \
-  add-apt-repository ppa:ubuntuhandbook1/dolphin-emu && \
-  apt-get update && \
-  apt-get install --no-install-recommends -y \
-    dolphin-emu && \
   echo "**** install pcsx2 ****" && \
   add-apt-repository ppa:pcsx2-team/pcsx2-daily && \
   apt-get update && \
   apt-get install --no-install-recommends -y \
-    pcsx2-stable && \
-  setcap -r /usr/bin/pcsx2-qt && \
+    pcsx2 && \
   echo "**** install ppsspp ****" && \
   add-apt-repository ppa:xuzhen666/ppsspp && \
   apt-get update && \
@@ -111,16 +275,6 @@ RUN \
   mv \
     squashfs-root \
     /opt/duckstation && \
-  echo "**** install eden ****" && \
-  if [ -z ${EDEN_VERSION+x} ]; then \
-    EDEN_VERSION=$(curl -sX GET "https://git.eden-emu.dev/api/v1/repos/eden-emu/eden/releases/latest" \
-    | awk '/tag_name/{print $6;exit}' FS='[""]'); \
-  fi && \
-  curl -o \
-    /tmp/eden.deb -L \
-    "https://git.eden-emu.dev/eden-emu/eden/releases/download/${EDEN_VERSION}/Eden-Ubuntu-24.04-${EDEN_VERSION}-amd64.deb" && \
-  apt-get install -y \
-    /tmp/eden.deb && \
   echo "**** install flycast ****" && \
   FLYCAST_URL=$(curl -sX GET "https://api.github.com/repos/flyinghead/flycast/releases/latest" \
     | awk -F '(": "|")' '/browser.*.AppImage/ {print $3}') && \
@@ -187,14 +341,8 @@ RUN \
     AppDir \
     /opt/rpcs3 && \
   echo "**** install scummvm ****" && \
-  SCUMMVM_VERSION=$(curl -sX GET "https://api.github.com/repos/scummvm/scummvm/releases/latest" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]' | sed 's/^v//g') && \
-  curl -o \
-    /tmp/scummvm.deb -L \
-    "https://downloads.scummvm.org/frs/scummvm/${SCUMMVM_VERSION}/scummvm_${SCUMMVM_VERSION}-1_ubuntu24_04_amd64.deb" && \
-  apt-get update && \
   apt-get install -y \
-    /tmp/scummvm.deb && \
+    scummvm && \
   echo "**** install xemu ****" && \
   mkdir /tmp/xemu && \
   curl -o \
@@ -206,17 +354,6 @@ RUN \
   mv \
     squashfs-root \
     /opt/xemu && \
-  echo "**** install esde ****" && \
-  mkdir /tmp/esde && \
-  curl -o \
-    /tmp/esde/esde.app -L \
-    "https://gitlab.com/es-de/emulationstation-de/-/package_files/246875981/download" && \
-  cd /tmp/esde && \
-  chmod +x esde.app && \
-  ./esde.app --appimage-extract && \
-  mv \
-    squashfs-root \
-    /opt/esde && \
   echo "**** install shadps4qt ****" && \
   mkdir /tmp/shadps4 && \
   SHADPS4_VERSION=$(curl -sX GET "https://api.github.com/repos/shadps4-emu/shadps4-qtlauncher/releases" \
@@ -245,20 +382,6 @@ RUN \
   mv \
     squashfs-root/usr/bin/pkg_extractor \
     /usr/local/bin/ && \
-  echo "**** install cemu ****" && \
-  mkdir /tmp/cemu && \
-  CEMU_URL=$(curl -sX GET "https://api.github.com/repos/cemu-project/Cemu/releases/latest" \
-    | awk -F '(": "|")' '/browser.*ubuntu-22.04-x64.zip/ {print $3}') && \
-  curl -o \
-    /tmp/cemu/cemu.zip -L \
-    "${CEMU_URL}" && \
-  cd /tmp/cemu && \
-  unzip cemu.zip && \
-  mv \
-    Cemu* \
-    /opt/cemu && \
-  chmod +x \
-    /opt/cemu/Cemu && \
   echo "**** install flips ****" && \
   mkdir /tmp/flips && \
   FLIPS_URL=$(curl -sX GET "https://api.github.com/repos/Alcaro/Flips/releases/latest" \
@@ -279,11 +402,18 @@ RUN \
     /config/.cache \
     /config/.launchpadlib \
     /tmp/* \
+    /usr/share/applications/debian-uxterm.desktop \
+    /usr/share/applications/debian-xterm.desktop \
+    /usr/share/applications/foot-server.desktop \
+    /usr/share/applications/footclient.desktop \
     /usr/share/applications/pcmanfm-qt-desktop-pref.desktop \
+    /usr/share/applications/st.desktop \
     /var/lib/apt/lists/* \
     /var/tmp/* 
 
-# add local files
+# add local files and files from build stages
+COPY --from=dolphin /root-out/ /
+COPY --from=eden /root-out/ /
 COPY /root /
 
 # ports and volumes
