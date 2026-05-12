@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=shadPS4 Qt Launcher
-Exec=/usr/bin/foot -e /opt/shadps4/AppRun
+Exec=/opt/shadps4/AppRun
 Terminal=false
 Type=Application
 Icon=/opt/shadps4/net.shadps4.shadPS4

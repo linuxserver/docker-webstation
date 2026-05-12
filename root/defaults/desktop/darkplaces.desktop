@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=DarkPlaces
 Comment=Enhanced Quake Engine
-Exec=/usr/bin/foot -e /usr/games/darkplaces
+Exec=/usr/games/darkplaces
 Icon=/usr/share/icons/Papirus/32x32/apps/quake.svg
 Terminal=false
 Type=Application

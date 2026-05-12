@@ -60,3 +60,7 @@ if [ ! -d "$HOME/.local/share/shadPS4" ]; then
     /defaults/config.json \
     "$HOME/.local/share/shadPS4/"
 fi
+# Fake xdg portal
+if ! pgrep -f "python3 /defaults/fake-xdg.py" > /dev/null; then
+  python3 /defaults/fake-xdg.py &
+fi

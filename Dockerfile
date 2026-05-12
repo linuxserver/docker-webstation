@@ -178,6 +178,7 @@ RUN \
   apt-get install --no-install-recommends -y \
     chromium \
     darkplaces \
+    dbus-x11 \
     eduke32 \
     eduke32-shareware-episode \
     featherpad \
@@ -189,13 +190,13 @@ RUN \
     libboost-filesystem1.90.0 \
     libcubeb0 \
     libenet7 \
-    libenet7 \
     libfaad2 \
     libfmt10 \
     libgtk-3-common \
     liblz4-1 \
     libopenal1 \
     libopus0 \
+    libpipewire-0.3 \
     libqt6charts6 \
     libqt6multimedia6 \
     libqt6svg6 \
@@ -205,14 +206,17 @@ RUN \
     libsimpleini1t64 \
     libssl3t64 \
     libusb-1.0-0 \
-    libusb-1.0-0 \
     libxcb-cursor0 \
     libzstd1 \
     p7zip-full \
     papirus-icon-theme \
     pcmanfm-qt \
+    python3 \
+    python3-dbus \
+    python3-gi \
     qt6-wayland \
-    unrar && \
+    unrar \
+    zenity && \
   echo "**** chromium wrapper ****" && \
   mv \
     /usr/bin/chromium \
@@ -248,9 +252,6 @@ RUN \
   unzip \
     /tmp/autoconfig.zip \
     -d /usr/share/libretro/autoconfig && \
-  mv \
-    /usr/bin/retroarch \
-    /usr/bin/retroarch-real && \
   echo "**** install dosbox ****" && \
   if [ -z ${DSTAGING_VERSION+x} ]; then \
     DSTAGING_VERSION=$(curl -sX GET "https://api.github.com/repos/dosbox-staging/dosbox-staging/releases/latest" \
@@ -345,15 +346,28 @@ RUN \
     scummvm && \
   echo "**** install xemu ****" && \
   mkdir /tmp/xemu && \
+  XEMU_URL=$(curl -sX GET "https://api.github.com/repos/xemu-project/xemu/releases" \
+    | awk -F '(": "|")' '/browser.*x86_64.AppImage/ && !/.*dbg.*/ {print $3;exit}') && \
   curl -o \
     /tmp/xemu/xemu.app -L \
-    "https://github.com/xemu-project/xemu/releases/download/v0.8.133/xemu-0.8.133-x86_64.AppImage" && \
+    "${XEMU_URL}" && \
   cd /tmp/xemu && \
   chmod +x xemu.app && \
   ./xemu.app --appimage-extract && \
   mv \
     squashfs-root \
     /opt/xemu && \
+ echo "**** install esde ****" && \
+  mkdir /tmp/esde && \
+  curl -o \
+    /tmp/esde/esde.app -L \
+    "https://gitlab.com/es-de/emulationstation-de/-/package_files/288156961/download" && \
+  cd /tmp/esde && \
+  chmod +x esde.app && \
+  ./esde.app --appimage-extract && \
+  mv \
+    AppDir \
+    /opt/esde && \
   echo "**** install shadps4qt ****" && \
   mkdir /tmp/shadps4 && \
   SHADPS4_VERSION=$(curl -sX GET "https://api.github.com/repos/shadps4-emu/shadps4-qtlauncher/releases" \

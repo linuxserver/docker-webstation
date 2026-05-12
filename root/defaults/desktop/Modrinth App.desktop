@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=Game;
-Exec=/usr/bin/foot -e /usr/bin/ModrinthApp
+Exec=/usr/bin/ModrinthApp
 Icon=ModrinthApp
 Name=Modrinth App
 Terminal=false

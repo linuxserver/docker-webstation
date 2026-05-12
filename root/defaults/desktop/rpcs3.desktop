@@ -3,6 +3,6 @@ Type=Application
 Name=RPCS3
 GenericName=PlayStation 3 Emulator
 Icon=/opt/rpcs3/usr/share/icons/hicolor/scalable/apps/rpcs3.svg
-Exec=/usr/bin/foot -e /opt/rpcs3/AppRun %f
+Exec=/opt/rpcs3/AppRun %f
 Terminal=false
 Categories=Game;Emulator;

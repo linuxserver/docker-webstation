@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Terminal=false
-Exec=/usr/bin/foot -e /opt/xemu/AppRun
+Exec=/opt/xemu/AppRun
 Name=xemu
 Comment=Emulator for the original Xbox console
 Icon=/opt/xemu/xemu.svg
