@@ -44,6 +44,11 @@ monitor_shadps4_no_fuse() {
 
 monitor_shadps4_no_fuse &
 
+# Fake xdg portal
+if ! pgrep -f "python3 /defaults/fake-xdg.py" > /dev/null; then
+  python3 /defaults/fake-xdg.py &
+fi
+
 # Start DE
 ulimit -c 0
 export XCURSOR_THEME=breeze
