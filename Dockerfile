@@ -276,6 +276,9 @@ RUN \
   mv \
     squashfs-root \
     /opt/duckstation && \
+  ln -s \
+    /opt/duckstation/AppRun \
+    /usr/bin/duckstation-qt && \
   echo "**** install flycast ****" && \
   FLYCAST_URL=$(curl -sX GET "https://api.github.com/repos/flyinghead/flycast/releases/latest" \
     | awk -F '(": "|")' '/browser.*.AppImage/ {print $3}') && \
@@ -288,6 +291,9 @@ RUN \
   mv \
     squashfs-root \
     /opt/flycast && \
+  ln -s \
+    /opt/flycast/AppRun \
+    /usr/bin/flycast && \
   echo "**** install gzdoom ****" && \
   GZDOOM_URL=$(curl -sX GET "https://api.github.com/repos/ZDoom/gzdoom/releases/latest" \
     | awk -F '(": "|")' '/browser.*amd64.deb/ {print $3}') && \
@@ -341,6 +347,9 @@ RUN \
   mv \
     AppDir \
     /opt/rpcs3 && \
+  ln -s \
+    /opt/rpcs3/AppRun \
+    /usr/bin/rpcs3 && \
   echo "**** install scummvm ****" && \
   apt-get install -y \
     scummvm && \
@@ -357,6 +366,9 @@ RUN \
   mv \
     squashfs-root \
     /opt/xemu && \
+  ln -s \
+    /opt/xemu/AppRun \
+    /usr/bin/xemu && \
  echo "**** install esde ****" && \
   mkdir /tmp/esde && \
   curl -o \
