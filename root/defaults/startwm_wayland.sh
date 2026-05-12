@@ -46,6 +46,7 @@ monitor_shadps4_no_fuse &
 
 # Start DE
 ulimit -c 0
+export PATH=$PATH:/usr/games
 export XCURSOR_THEME=breeze
 export XCURSOR_SIZE=24
 export XKB_DEFAULT_LAYOUT=us
