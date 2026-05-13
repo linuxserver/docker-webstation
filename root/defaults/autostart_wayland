@@ -11,6 +11,7 @@ fi
 if [ ! -f "${HOME}/.config/dolphin-emu/GCPadNew.ini" ]; then
   mkdir -p "${HOME}/.config/dolphin-emu/"
   cp /defaults/GCPadNew.ini "${HOME}/.config/dolphin-emu/"
+  cp /defaults/Dolphin.ini "${HOME}/.config/dolphin-emu/"
 fi
 # Eden
 if [ ! -f "${HOME}/.config/eden/qt-config.ini" ]; then
