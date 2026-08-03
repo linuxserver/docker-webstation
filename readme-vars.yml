@@ -38,7 +38,7 @@ app_setup_block: |
   **This image only runs in Wayland mode and should be run with a GPU**
 # init diagram
 init_diagram: |
-  "webstation:latest": {
+  "webstation:romm": {
     docker-mods
     base {
       fix-attr +\nlegacy cont-init
@@ -67,11 +67,16 @@ init_diagram: |
     init-adduser -> init-os-end
     init-device-perms -> init-os-end
     init-envfile -> init-os-end
+    init-selkies-config -> init-romm-config
     init-os-end -> init-selkies
     init-nginx -> init-selkies-config
+    init-romm-config -> init-selkies-end
     init-video -> init-selkies-end
     init-custom-files -> init-services
     init-selkies-config -> init-video
+    init-services -> svc-broker
+    svc-selkies -> svc-broker
+    svc-broker -> legacy-services
     init-services -> svc-cron
     svc-cron -> legacy-services
     init-services -> svc-dbus
@@ -105,7 +110,7 @@ init_diagram: |
   Base Images: {
     "baseimage-selkies:ubunturesolute" <- "baseimage-ubuntu:resolute"
   }
-  "webstation:latest" <- Base Images
+  "webstation:romm" <- Base Images
 # changelog
 changelogs:
   - {date: "05.05.26:", desc: "Rebase to resolute."}
