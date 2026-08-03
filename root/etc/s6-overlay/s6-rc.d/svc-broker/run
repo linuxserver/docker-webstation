@@ -1,0 +1,32 @@
+#!/usr/bin/with-contenv bash
+
+# sleep for selkies
+echo "[svc-broker] waiting for selkies control port 8083"
+until curl -s -o /dev/null http://127.0.0.1:8083; do
+  sleep 1
+done
+echo "[svc-broker] selkies control plane is up"
+
+# dev mode or live
+if [[ "${BROKER_DEV_MODE,,}" == "true" ]]; then
+  if [[ ! -f /broker/pyproject.toml ]]; then
+    echo "[svc-broker] BROKER_DEV_MODE=true but no source mounted at /broker, sleeping"
+    exec sleep infinity
+  fi
+  echo "[svc-broker] dev mode: editable install from /broker"
+  pip install -e /broker --break-system-packages
+  fuser -k 5173/tcp 2>/dev/null
+  fuser -k 8000/tcp 2>/dev/null
+  echo "[svc-broker] starting vite dev server on 5173"
+  cd /broker/frontend
+  s6-setuidgid abc npm install
+  s6-setuidgid abc npm run dev -- --host 127.0.0.1 --port 5173 &
+  echo "[svc-broker] starting uvicorn with reload on 8000"
+  cd /broker
+  exec s6-setuidgid abc \
+    uvicorn --factory webstation_broker.app:create_app \
+      --host 127.0.0.1 --port 8000 \
+      --reload --reload-dir /broker/webstation_broker
+else
+  exec s6-setuidgid abc webstation-broker
+fi

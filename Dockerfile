@@ -157,11 +157,10 @@ ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="thelamer"
 
-# title
 ENV TITLE="Webstation" \
     NO_FULL=true \
     PIXELFLUX_WAYLAND=true \
-    SELKIES_DESKTOP=true \
+    SUBFOLDER="/streaming/" \
     DOOMWADDIR="/config"
 
 RUN \
@@ -208,12 +207,14 @@ RUN \
     libusb-1.0-0 \
     libxcb-cursor0 \
     libzstd1 \
+    nodejs \
     p7zip-full \
     papirus-icon-theme \
     pcmanfm-qt \
     python3 \
     python3-dbus \
     python3-gi \
+    python3-pip \
     qt6-wayland \
     unrar \
     zenity && \
@@ -422,11 +423,26 @@ RUN \
     /usr/local/bin/ && \
   chmod +x \
     /usr/local/bin/flips && \
+  echo "**** install broker ****" && \
+  mkdir -p /tmp/broker && \
+  curl -o \
+    /tmp/broker.tar.gz -L \
+    "https://github.com/thelamer/romm-broker-dev/archive/master.tar.gz" && \
+  tar xf \
+    /tmp/broker.tar.gz -C \
+    /tmp/broker/ --strip-components=1 && \
+  pip install /tmp/broker --break-system-packages && \
+  cd /tmp/broker/frontend && \
+  npm install && \
+  SUBFOLDER=/streaming/ npm run build && \
+  mkdir -p /usr/share/webstation-broker && \
+  cp -r dist /usr/share/webstation-broker/www && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
     /config/.cache \
     /config/.launchpadlib \
+    /config/.npm \
     /tmp/* \
     /usr/share/applications/debian-uxterm.desktop \
     /usr/share/applications/debian-xterm.desktop \

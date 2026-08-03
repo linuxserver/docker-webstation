@@ -1,0 +1,16 @@
+#!/usr/bin/with-contenv bash
+
+# ensure master token is set
+if [ -z "${SELKIES_MASTER_TOKEN}" ]; then
+  SELKIES_MASTER_TOKEN=$(openssl rand -hex 24)
+  echo "[ls.io-init] Generated SELKIES_MASTER_TOKEN for this boot"
+fi
+printf "%s" "${SELKIES_MASTER_TOKEN}" > /run/s6/container_environment/SELKIES_MASTER_TOKEN
+
+# modify nginx ports for broker
+NGINX_CONFIG=/etc/nginx/sites-available/default
+if [[ "${BROKER_DEV_MODE,,}" == "true" ]]; then
+  sed -i "s/BROKERWEB/5173/g" ${NGINX_CONFIG}
+else
+  sed -i "s/BROKERWEB/8000/g" ${NGINX_CONFIG}
+fi
