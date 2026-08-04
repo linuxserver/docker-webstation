@@ -280,6 +280,9 @@ RUN \
   ln -s \
     /opt/duckstation/AppRun \
     /usr/bin/duckstation-qt && \
+  ln -s \
+    /opt/duckstation/usr/bin/libshaderc_shared.so \
+    /usr/lib/x86_64-linux-gnu/libshaderc.so.1 && \
   echo "**** install flycast ****" && \
   FLYCAST_URL=$(curl -sX GET "https://api.github.com/repos/flyinghead/flycast/releases/latest" \
     | awk -F '(": "|")' '/browser.*.AppImage/ {print $3}') && \
