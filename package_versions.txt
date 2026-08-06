@@ -767,6 +767,7 @@ libaa1                                                                        1.
 libabsl20260107                                                               20260107.0-4                            deb                         
 libacl1                                                                       2.3.2-2                                 deb                         
 libadwaita-1-0                                                                1.9.1-0ubuntu0.1                        deb                         
+libaio1t64                                                                    0.3.113-8build1                         deb                         
 libaom3                                                                       3.13.1-2                                deb                         
 libapparmor1                                                                  5.0.0~beta1-0ubuntu7                    deb                         
 libappstream5                                                                 1.1.2-1                                 deb                         
@@ -992,7 +993,7 @@ libisl23                                                                      0.
 libitm1                                                                       16-20260322-1ubuntu1                    deb                         
 libjack-jackd2-0                                                              1.9.22~dfsg-5build1                     deb                         
 libjansson4                                                                   2.14-2build4                            deb                         
-libjavascriptcoregtk-4.1-0                                                    2.52.3-0ubuntu0.26.04.2                 deb                         
+libjavascriptcoregtk-4.1-0                                                    2.52.3-0ubuntu0.26.04.3                 deb                         
 libjbig0                                                                      2.1-6.1ubuntu3                          deb                         
 libjbig2dec0                                                                  0.20-1ubuntu0.26.04.1                   deb                         
 libjpeg-turbo8                                                                2.1.5-4ubuntu4                          deb                         
@@ -1279,6 +1280,7 @@ libunibreak6                                                                  6.
 libunistring5                                                                 1.3-2build1                             deb                         
 libunwind8                                                                    1.8.3-0ubuntu1                          deb                         
 liburi-perl                                                                   5.34-2build1                            deb                         
+liburing2                                                                     2.14-1                                  deb                         
 libusb-1.0-0                                                                  2:1.0.29-2build1                        deb                         
 libutempter0                                                                  1.2.1-4build1                           deb                         
 libutf8proc3                                                                  2.10.0-2                                deb                         
@@ -1305,7 +1307,7 @@ libwayland-client0                                                            1.
 libwayland-cursor0                                                            1.24.0-2                                deb                         
 libwayland-egl1                                                               1.24.0-2                                deb                         
 libwayland-server0                                                            1.24.0-2                                deb                         
-libwebkit2gtk-4.1-0                                                           2.52.3-0ubuntu0.26.04.2                 deb                         
+libwebkit2gtk-4.1-0                                                           2.52.3-0ubuntu0.26.04.3                 deb                         
 libwebp7                                                                      1.5.0-0.1build1                         deb                         
 libwebpdemux2                                                                 1.5.0-0.1build1                         deb                         
 libwebpmux3                                                                   1.5.0-0.1build1                         deb                         
@@ -1403,8 +1405,8 @@ lsb-release                                                                   12
 lxqt-sudo                                                                     2.3.0-0ubuntu1                          deb                         
 make                                                                          4.4.1-3                                 deb                         
 make-fetch-happen                                                             14.0.3                                  npm                         
-mame                                                                          0.288+dfsg1-0ubuntu1~ppa22~resolute1    deb                         
-mame-data                                                                     0.288+dfsg1-0ubuntu1~ppa22~resolute1    deb                         
+mame                                                                          0.289+dfsg1-0ubuntu1~ppa1~resolute1     deb                         
+mame-data                                                                     0.289+dfsg1-0ubuntu1~ppa1~resolute1     deb                         
 man-db                                                                        2.13.1-1build1                          deb                         
 mawk                                                                          1.3.4.20260129-1                        deb                         
 media-types                                                                   14.0.0build1                            deb                         
@@ -1563,6 +1565,7 @@ python3.14                                                                    3.
 python3.14-minimal                                                            3.14.4-1ubuntu0.1                       deb                         
 python3.14-venv                                                               3.14.4-1ubuntu0.1                       deb                         
 pyyaml                                                                        6.0.3                                   python                      
+qemu-utils                                                                    1:10.2.1+ds-1ubuntu3.2                  deb                         
 qrcode-terminal                                                               0.12.0                                  npm                         
 qt6-wayland                                                                   6.10.2-4                                deb                         
 read                                                                          4.1.0                                   npm                         
@@ -1642,7 +1645,9 @@ typing-extensions                                                             4.
 typing-extensions                                                             4.15.0                                  python                      
 typing-inspection                                                             0.4.2                                   python                      
 tzdata                                                                        2026b-0ubuntu0.26.04.1                  deb                         
+ubuntu-helper-virt-hwe                                                        1:10.2.1+ds-1ubuntu4.3                  deb                         
 ubuntu-keyring                                                                2023.11.28.1build1                      deb                         
+ubuntu-virt                                                                   1:10.2.1+ds-1ubuntu3.2                  deb                         
 udev                                                                          259.5-0ubuntu3                          deb                         
 unique-filename                                                               4.0.0                                   npm                         
 unique-slug                                                                   5.0.0                                   npm                         
