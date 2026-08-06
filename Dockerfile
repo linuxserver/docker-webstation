@@ -216,6 +216,7 @@ RUN \
     python3-gi \
     python3-pip \
     qt6-wayland \
+    qemu-utils \
     unrar \
     zenity && \
   echo "**** chromium wrapper ****" && \
