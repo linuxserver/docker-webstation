@@ -154,6 +154,7 @@ FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute
 # set version label
 ARG BUILD_DATE
 ARG VERSION
+ARG BROKER_RELEASE
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="thelamer"
 
@@ -429,9 +430,13 @@ RUN \
     /usr/local/bin/flips && \
   echo "**** install broker ****" && \
   mkdir -p /tmp/broker && \
+  if [ -z ${BROKER_RELEASE+x} ]; then \
+    BROKER_RELEASE=$(curl -sX GET "https://api.github.com/repos/romm-streaming/romm-broker/releases/latest" \
+    | awk '/tag_name/{print $4;exit}' FS='[""]'); \
+  fi && \
   curl -o \
     /tmp/broker.tar.gz -L \
-    "https://github.com/thelamer/romm-broker-dev/archive/master.tar.gz" && \
+    "https://github.com/romm-streaming/romm-broker/archive/${BROKER_RELEASE}.tar.gz" && \
   tar xf \
     /tmp/broker.tar.gz -C \
     /tmp/broker/ --strip-components=1 && \

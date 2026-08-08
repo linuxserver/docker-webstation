@@ -2,9 +2,9 @@
 
 # project information
 project_name: webstation
-project_url: "https://github.com/linuxserver/docker-webstation"
+project_url: "https://github.com/romm-streaming/romm-broker"
 project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webstation-logo.png"
-project_blurb: "[Webstation]({{ project_url }}) is a web native emulation focused LXQt desktop based on Ubuntu."
+project_blurb: "[Webstation romm-broker]({{ project_url }}) is a sidecar container to enable collaborative streaming sessions from the [ROMM](https://romm.app/) web interface."
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
 project_blurb_optional_extras_enabled: false
 project_categories: "Games"
@@ -21,8 +21,8 @@ param_volumes:
   - {vol_path: "/config", vol_host_path: "/path/to/config", desc: "Users home directory in the container, stores all files and games."}
 param_usage_include_ports: true
 param_ports:
-  - {external_port: "3000", internal_port: "3000", port_desc: "Webstation desktop gui HTTP must be proxied."}
-  - {external_port: "3001", internal_port: "3001", port_desc: "Webstation desktop gui HTTPS."}
+  - {external_port: "3000", internal_port: "3000", port_desc: "Webstation romm-broker desktop gui HTTP must be proxied."}
+  - {external_port: "3001", internal_port: "3001", port_desc: "Webstation romm-broker desktop gui HTTPS."}
 custom_params:
   - {name: "shm-size", name_compose: "shm_size", value: "1gb", desc: "Recommended for all desktop images."}
 # Selkies blurb settings
@@ -36,6 +36,8 @@ app_setup_block: |
   * https://yourhost:3001/
 
   **This image only runs in Wayland mode and should be run with a GPU**
+
+  **For complete setup see [https://github.com/romm-streaming/romm-broke](https://github.com/romm-streaming/romm-broker)
 # init diagram
 init_diagram: |
   "webstation:romm": {
@@ -113,8 +115,4 @@ init_diagram: |
   "webstation:romm" <- Base Images
 # changelog
 changelogs:
-  - {date: "05.05.26:", desc: "Rebase to resolute."}
-  - {date: "28.03.26:", desc: "Swap UI to baked in selkies-desktop."}
-  - {date: "17.03.26:", desc: "Fix eden ingestion to use self hosted git."}
-  - {date: "02.03.26:", desc: "Fix init to not use session wrapper."}
-  - {date: "25.02.26:", desc: "Initial Version."}
+  - {date: "08.08.26:", desc: "Initial release."}

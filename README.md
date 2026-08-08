@@ -37,9 +37,9 @@ Find us at:
 [![Jenkins Build](https://img.shields.io/jenkins/build?labelColor=555555&logoColor=ffffff&style=for-the-badge&jobUrl=https%3A%2F%2Fci.linuxserver.io%2Fjob%2FDocker-Pipeline-Builders%2Fjob%2Fdocker-webstation%2Fjob%2Fromm%2F&logo=jenkins)](https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-webstation/job/romm/)
 [![LSIO CI](https://img.shields.io/badge/dynamic/yaml?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=CI&query=CI&url=https%3A%2F%2Fci-tests.linuxserver.io%2Flinuxserver%2Fwebstation%2Fromm%2Fci-status.yml)](https://ci-tests.linuxserver.io/linuxserver/webstation/romm/index.html)
 
-[Webstation](https://github.com/linuxserver/docker-webstation) is a web native emulation focused LXQt desktop based on Ubuntu.
+[Webstation romm-broker](https://github.com/romm-streaming/romm-broker) is a sidecar container to enable collaborative streaming sessions from the [ROMM](https://romm.app/) web interface.
 
-[![webstation](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webstation-logo.png)](https://github.com/linuxserver/docker-webstation)
+[![webstation](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webstation-logo.png)](https://github.com/romm-streaming/romm-broker)
 
 ## Supported Architectures
 
@@ -61,6 +61,8 @@ The application can be accessed at:
 * https://yourhost:3001/
 
 **This image only runs in Wayland mode and should be run with a GPU**
+
+**For complete setup see [https://github.com/romm-streaming/romm-broke](https://github.com/romm-streaming/romm-broker)
 
 ### Strict reverse proxies
 
@@ -475,8 +477,8 @@ Containers are configured using parameters passed at runtime (such as those abov
 
 | Parameter | Function |
 | :----: | --- |
-| `-p 3000:3000` | Webstation desktop gui HTTP must be proxied. |
-| `-p 3001:3001` | Webstation desktop gui HTTPS. |
+| `-p 3000:3000` | Webstation romm-broker desktop gui HTTP must be proxied. |
+| `-p 3001:3001` | Webstation romm-broker desktop gui HTTPS. |
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Etc/UTC` | specify a timezone to use, see this [list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List). |
@@ -645,8 +647,4 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
-* **05.05.26:** - Rebase to resolute.
-* **28.03.26:** - Swap UI to baked in selkies-desktop.
-* **17.03.26:** - Fix eden ingestion to use self hosted git.
-* **02.03.26:** - Fix init to not use session wrapper.
-* **25.02.26:** - Initial Version.
+* **08.08.26:** - Initial release.

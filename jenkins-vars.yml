@@ -2,13 +2,15 @@
 
 # jenkins variables
 project_name: docker-webstation
-external_type: os
+external_type: github_stable
 release_type: prerelease
 release_tag: romm
 ls_branch: romm
 build_armhf: false
 repo_vars:
-  - BUILD_VERSION_ARG = 'OS_VERSION'
+  - EXT_USER = 'romm-streaming'
+  - EXT_REPO = 'romm-broker'
+  - BUILD_VERSION_ARG = 'BROKER_VERSION'
   - LS_USER = 'linuxserver'
   - LS_REPO = 'docker-webstation'
   - CONTAINER_NAME = 'webstation'
