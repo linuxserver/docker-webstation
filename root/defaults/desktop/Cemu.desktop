@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Icon=info.cemu.Cemu
+Exec=/usr/bin/Cemu
+Terminal=false
+Type=Application
+Categories=Game;Emulator;
+Name=Cemu
+GenericName=Wii U Emulator
+Comment=Software to emulate Wii U games and applications on PC
+MimeType=application/x-wii-u-rom;
+Keywords=Nintendo;

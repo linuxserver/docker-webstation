@@ -148,6 +148,106 @@ RUN \
     dist/icon_variations/base.svg \
     /root-out/usr/share/icons/hicolor/scalable/apps/dev.eden_emu.eden.svg
 
+FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute AS cemu
+
+RUN \
+  echo "**** install build deps ****" && \
+  apt-get update && \
+  apt-get install -y \
+    build-essential \
+    cmake \
+    freeglut3-dev \
+    git \
+    libbluetooth-dev \
+    libboost-dev \
+    libboost-filesystem-dev \
+    libboost-nowide-dev \
+    libboost-program-options-dev \
+    libcubeb-dev \
+    libcurl4-openssl-dev \
+    libglm-dev \
+    libfmt-dev \
+    libgtk-3-dev \
+    libhidapi-dev \
+    libpng-dev \
+    libpugixml-dev \
+    libpulse-dev \
+    libsdl2-dev \
+    libssl-dev \
+    libusb-1.0-0-dev \
+    libwayland-dev \
+    libwxgtk3.2-dev \
+    libx11-dev \
+    libzip-dev \
+    libzstd-dev \
+    nasm \
+    ninja-build \
+    pkg-config \
+    python3 \
+    rapidjson-dev \
+    wayland-protocols \
+    zlib1g-dev
+
+RUN \
+  echo "**** build cemu ****" && \
+  CEMU_VERSION=$(curl -sX GET "https://api.github.com/repos/cemu-project/Cemu/releases/latest" \
+    | awk '/tag_name/{print $4;exit}' FS='[""]') && \
+  mkdir -p /root-out/usr/bin && \
+  mkdir -p /root-out/usr/share/Cemu && \
+  mkdir -p /root-out/usr/share/icons/hicolor/128x128/apps && \
+  git clone https://github.com/KhronosGroup/glslang.git && \
+  cd glslang && \
+  git checkout -f 14.2.0 && \
+  ./update_glslang_sources.py && \
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_CXX_FLAGS="-include cstdint" \
+    -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+    -G Ninja && \
+  cmake --build build && \
+  cmake --install build && \
+  cd .. && \
+  git clone https://github.com/cemu-project/Cemu.git && \
+  cd Cemu && \
+  echo "**** building cemu at ${CEMU_VERSION} ****" && \
+  git checkout -f ${CEMU_VERSION} && \
+  git submodule update --init --recursive \
+    dependencies/cubeb \
+    dependencies/ih264d \
+    dependencies/imgui \
+    dependencies/Vulkan-Headers \
+    dependencies/ZArchive && \
+  mkdir -p /usr/lib/x86_64-linux-gnu/cmake/hidapi && \
+  printf '%s\n' \
+    'add_library(hidapi::hidapi SHARED IMPORTED)' \
+    'set_target_properties(hidapi::hidapi PROPERTIES' \
+    '  IMPORTED_LOCATION "/usr/lib/x86_64-linux-gnu/libhidapi-hidraw.so"' \
+    '  INTERFACE_INCLUDE_DIRECTORIES "/usr/include/hidapi")' \
+    > /usr/lib/x86_64-linux-gnu/cmake/hidapi/hidapiConfig.cmake && \
+  sed -i \
+    's/set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE ON)/set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE OFF)/' \
+    CMakeLists.txt && \
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=release \
+    -DCMAKE_C_COMPILER=/usr/bin/gcc \
+    -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
+    -DCMAKE_MAKE_PROGRAM=/usr/bin/ninja \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+    -DENABLE_DISCORD_RPC=OFF \
+    -DENABLE_FERAL_GAMEMODE=OFF \
+    -DENABLE_VCPKG=OFF \
+    -G Ninja && \
+  cmake --build build && \
+  cp -r \
+    bin/* \
+    /root-out/usr/share/Cemu/ && \
+  mv \
+    /root-out/usr/share/Cemu/Cemu_release \
+    /root-out/usr/bin/Cemu && \
+  cp \
+    dist/linux/info.cemu.Cemu.png \
+    /root-out/usr/share/icons/hicolor/128x128/apps/info.cemu.Cemu.png
+
 # runtime stage
 FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute
 
@@ -186,17 +286,23 @@ RUN \
     ibsdl2-2.0-0 \
     jstest-gtk \
     libavcodec62 \
+    libbluetooth3 \
     libboost-context1.90.0 \
     libboost-filesystem1.90.0 \
+    libboost-nowide1.90.0 \
+    libboost-program-options1.90.0 \
     libcubeb0 \
     libenet7 \
     libfaad2 \
     libfmt10 \
+    libgtk-3-0t64 \
     libgtk-3-common \
+    libhidapi-hidraw0 \
     liblz4-1 \
     libopenal1 \
     libopus0 \
     libpipewire-0.3 \
+    libpugixml1v5 \
     libqt6charts6 \
     libqt6multimedia6 \
     libqt6svg6 \
@@ -206,7 +312,10 @@ RUN \
     libsimpleini1t64 \
     libssl3t64 \
     libusb-1.0-0 \
+    libwxgtk-gl3.2-1t64 \
+    libwxgtk3.2-1t64 \
     libxcb-cursor0 \
+    libzip5 \
     libzstd1 \
     p7zip-full \
     papirus-icon-theme \
@@ -438,6 +547,7 @@ RUN \
     /var/tmp/* 
 
 # add local files and files from build stages
+COPY --from=cemu /root-out/ /
 COPY --from=dolphin /root-out/ /
 COPY --from=eden /root-out/ /
 COPY /root /
