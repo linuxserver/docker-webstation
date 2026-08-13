@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Azahar
+GenericName=3DS Emulator
+Comment=Nintendo 3DS video game console emulator
+Icon=/opt/azahar/org.azahar_emu.Azahar.svg
+Exec=/opt/azahar/AppRun %f
+Categories=Game;Emulator;
+MimeType=application/x-ctr-3dsx;application/x-ctr-cci;application/x-ctr-cia;application/x-ctr-cxi;
+Keywords=3DS;Nintendo;

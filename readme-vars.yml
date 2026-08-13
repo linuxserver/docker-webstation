@@ -108,6 +108,7 @@ init_diagram: |
   "webstation:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "13.08.26:", desc: "Add Azahar emulator."}
   - {date: "10.08.26:", desc: "Add Cemu emulator."}
   - {date: "05.05.26:", desc: "Rebase to resolute."}
   - {date: "28.03.26:", desc: "Swap UI to baked in selkies-desktop."}

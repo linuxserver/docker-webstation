@@ -361,6 +361,21 @@ RUN \
   unzip \
     /tmp/autoconfig.zip \
     -d /usr/share/libretro/autoconfig && \
+  echo "**** install azahar ****" && \
+  AZAHAR_URL=$(curl -sX GET "https://api.github.com/repos/azahar-emu/azahar/releases/latest" \
+    | awk -F '(": "|")' '/browser.*azahar-wayland.AppImage/ {print $3}') && \
+  curl -o \
+    /tmp/azahar.app -L \
+    "${AZAHAR_URL}" && \
+  cd /tmp && \
+  chmod +x azahar.app && \
+  ./azahar.app --appimage-extract && \
+  mv \
+    squashfs-root \
+    /opt/azahar && \
+  ln -s \
+    /opt/azahar/AppRun \
+    /usr/bin/azahar && \
   echo "**** install dosbox ****" && \
   if [ -z ${DSTAGING_VERSION+x} ]; then \
     DSTAGING_VERSION=$(curl -sX GET "https://api.github.com/repos/dosbox-staging/dosbox-staging/releases/latest" \
