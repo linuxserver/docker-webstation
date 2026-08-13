@@ -122,6 +122,7 @@ g++-15                                                                        15
 g++-15-x86-64-linux-gnu                                                       15.2.0-16ubuntu1                        deb                         
 g++-x86-64-linux-gnu                                                          4:15.2.0-5ubuntu1                       deb                         
 gcc                                                                           4:15.2.0-5ubuntu1                       deb                         
+gcc-14                                                                        14.2.0-19                               deb                         
 gcc-14                                                                        14.2.0-4ubuntu2~24.04.1                 deb                         
 gcc-15                                                                        15.2.0-16ubuntu1                        deb                         
 gcc-15-base                                                                   15.2.0-16ubuntu1                        deb                         
@@ -1264,6 +1265,7 @@ libzip5                                                                       1.
 libzix-0-0                                                                    0.8.0-1                                 deb                         
 libzmq5                                                                       4.3.5-1build3                           deb                         
 libzstd                                                                       1.5.5+dfsg2-2build1.1                   deb                         
+libzstd                                                                       1.5.7+dfsg-1                            deb                         
 libzstd1                                                                      1.5.7+dfsg-3                            deb                         
 libzvbi-common                                                                0.2.44-1ubuntu2                         deb                         
 libzvbi0t64                                                                   0.2.44-1ubuntu2                         deb                         
@@ -1283,7 +1285,7 @@ mawk                                                                          1.
 media-types                                                                   14.0.0build1                            deb                         
 mesa-libgallium                                                               26.0.3-1ubuntu1                         deb                         
 mesa-vulkan-drivers                                                           26.0.3-1ubuntu1                         deb                         
-modrinth-app                                                                  0.17.5                                  deb                         
+modrinth-app                                                                  0.17.7                                  deb                         
 more-itertools                                                                10.3.0                                  python                      
 more-itertools                                                                10.8.0                                  python                      
 mount                                                                         2.41.3-3ubuntu2                         deb                         
@@ -1422,6 +1424,7 @@ stterm                                                                        0.
 sudo                                                                          1.9.17p2-1ubuntu3                       deb                         
 sudo-common                                                                   1.2ubuntu                               deb                         
 systemd                                                                       255.4-1ubuntu8.16                       deb                         
+systemd                                                                       257.13-1~deb13u1                        deb                         
 systemd                                                                       259.5-0ubuntu3.3                        deb                         
 systemd-sysv                                                                  259.5-0ubuntu3.3                        deb                         
 sysvinit-utils                                                                3.15-5ubuntu1                           deb                         
@@ -1441,6 +1444,7 @@ udev                                                                          25
 unrar                                                                         1:7.2.4-1                               deb                         
 unzip                                                                         6.0-29ubuntu1                           deb                         
 user-session-migration                                                        0.5.1                                   deb                         
+util-linux                                                                    2.41-5                                  deb                         
 util-linux                                                                    2.41.3-3ubuntu2                         deb                         
 uvicorn                                                                       0.52.1                                  python                      
 uvloop                                                                        0.22.1                                  python                      
