@@ -61,3 +61,10 @@ if [ ! -d "$HOME/.local/share/shadPS4" ]; then
     /defaults/config.json \
     "$HOME/.local/share/shadPS4/"
 fi
+# Azahar
+if [ ! -d "$HOME/.config/azahar-emu" ]; then
+  mkdir -p "$HOME/.config/azahar-emu"
+  cp \
+    /defaults/azahar.ini \
+    "$HOME/.config/azahar-emu/qt-config.ini"
+fi

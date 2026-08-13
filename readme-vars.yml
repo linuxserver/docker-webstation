@@ -115,5 +115,6 @@ init_diagram: |
   "webstation:romm" <- Base Images
 # changelog
 changelogs:
+  - {date: "13.08.26:", desc: "Add Azahar emulator."}
   - {date: "11.08.26:", desc: "Add Cemu emulator."}
   - {date: "08.08.26:", desc: "Initial release."}

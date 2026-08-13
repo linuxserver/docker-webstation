@@ -113,7 +113,7 @@ RUN \
   mkdir -p /root-out/usr/bin && \
   mkdir -p /root-out/usr/share/icons/hicolor/scalable/apps/ && \
   EDEN_VERSION=$(curl -sX GET 'https://git.eden-emu.dev/api/v1/repos/eden-emu/eden/releases/latest' \
-    | awk '/tag_name/{print $6;exit}' FS='[""]') && \
+    | jq -er '.tag_name') && \
   git clone https://git.eden-emu.dev/eden-emu/eden.git && \
   cd eden/ && \
   git checkout -f ${EDEN_VERSION} && \
@@ -191,7 +191,7 @@ RUN \
 RUN \
   echo "**** build cemu ****" && \
   CEMU_VERSION=$(curl -sX GET "https://api.github.com/repos/cemu-project/Cemu/releases/latest" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]') && \
+    | jq -er '.tag_name') && \
   mkdir -p /root-out/usr/bin && \
   mkdir -p /root-out/usr/share/Cemu && \
   mkdir -p /root-out/usr/share/icons/hicolor/128x128/apps && \
@@ -364,10 +364,25 @@ RUN \
   unzip \
     /tmp/autoconfig.zip \
     -d /usr/share/libretro/autoconfig && \
+  echo "**** install azahar ****" && \
+  AZAHAR_URL=$(curl -sX GET "https://api.github.com/repos/azahar-emu/azahar/releases/latest" \
+    | jq -er '.assets[] | select(.name == "azahar-wayland.AppImage") | .browser_download_url') && \
+  curl -o \
+    /tmp/azahar.app -L \
+    "${AZAHAR_URL}" && \
+  cd /tmp && \
+  chmod +x azahar.app && \
+  ./azahar.app --appimage-extract && \
+  mv \
+    squashfs-root \
+    /opt/azahar && \
+  ln -s \
+    /opt/azahar/AppRun \
+    /usr/bin/azahar && \
   echo "**** install dosbox ****" && \
   if [ -z ${DSTAGING_VERSION+x} ]; then \
     DSTAGING_VERSION=$(curl -sX GET "https://api.github.com/repos/dosbox-staging/dosbox-staging/releases/latest" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]'); \
+    | jq -er '.tag_name'); \
   fi && \
   curl -o \
     /tmp/dosbox.tar.xz -L \
@@ -378,7 +393,7 @@ RUN \
     /opt/dosbox --strip-components=1 && \
   echo "**** install duckstation ****" && \
   DOSBOX_URL=$(curl -sX GET "https://api.github.com/repos/stenzek/duckstation/releases/latest" \
-    | awk -F '(": "|")' '/browser.*x64.AppImage/ {print $3}') && \
+    | jq -er '.assets[] | select(.name == "DuckStation-x64.AppImage") | .browser_download_url') && \
   curl -o \
     /tmp/duck.app -L \
     "${DOSBOX_URL}" && \
@@ -396,7 +411,7 @@ RUN \
     /usr/lib/x86_64-linux-gnu/libshaderc.so.1 && \
   echo "**** install flycast ****" && \
   FLYCAST_URL=$(curl -sX GET "https://api.github.com/repos/flyinghead/flycast/releases/latest" \
-    | awk -F '(": "|")' '/browser.*.AppImage/ {print $3}') && \
+    | jq -er '.assets[] | select(.name | endswith("-x86_64.AppImage")) | .browser_download_url') && \
   curl -o \
     /tmp/fly.app -L \
     "${FLYCAST_URL}" && \
@@ -411,7 +426,7 @@ RUN \
     /usr/bin/flycast && \
   echo "**** install gzdoom ****" && \
   GZDOOM_URL=$(curl -sX GET "https://api.github.com/repos/ZDoom/gzdoom/releases/latest" \
-    | awk -F '(": "|")' '/browser.*amd64.deb/ {print $3}') && \
+    | jq -er '.assets[] | select(.name | endswith("_amd64.deb")) | .browser_download_url') && \
   curl -o \
     /tmp/gzdoom.deb -L \
     "${GZDOOM_URL}" && \
@@ -419,7 +434,7 @@ RUN \
   apt install -y \
     ./gzdoom.deb && \
   FREEDOOM_URL=$(curl -sX GET "https://api.github.com/repos/freedoom/freedoom/releases/latest" \
-    | awk -F '(": "|")' '/browser.*freedoom-.*.zip/ && !/.*sig/ {print $3}') && \
+    | jq -er '.assets[] | select(.name | startswith("freedoom-") and endswith(".zip")) | .browser_download_url') && \
   curl -o \
     /tmp/freedoom.zip -L \
     "${FREEDOOM_URL}" && \
@@ -433,7 +448,7 @@ RUN \
     https://github.com/pweil-/origin-quake/raw/refs/heads/master/id1/pak0.pak && \
   echo "**** install melonds ****" && \
   MELONDS_VERSION=$(curl -sX GET "https://api.github.com/repos/melonDS-emu/melonDS/releases/latest" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]') && \
+    | jq -er '.tag_name') && \
   curl -o \
     /tmp/melon.zip -L \
     "https://github.com/melonDS-emu/melonDS/releases/download/${MELONDS_VERSION}/melonDS-${MELONDS_VERSION}-ubuntu-x86_64.zip" && \
@@ -444,7 +459,7 @@ RUN \
     /usr/bin && \
   echo "**** install modrinth ****" && \
   MODRINTH_VERSION=$(curl -sX GET "https://api.github.com/repos/modrinth/code/releases/latest" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]') && \
+    | jq -er '.tag_name') && \
   curl -o \
     /tmp/modrinth.deb -L \
     "https://launcher-files.modrinth.com/versions/$(echo ${MODRINTH_VERSION}| sed 's/^v//g')/linux/Modrinth%20App_$(echo ${MODRINTH_VERSION}| sed 's/^v//g')_amd64.deb" && \
@@ -452,7 +467,7 @@ RUN \
     /tmp/modrinth.deb && \
   echo "**** install rpcs3 ****" && \
   RPCS3_URL=$(curl -sX GET "https://api.github.com/repos/RPCS3/rpcs3-binaries-linux/releases/latest" \
-    | awk -F '(": "|")' '/browser.*AppImage/ {print $3}') && \
+    | jq -er '.assets[] | select(.name | endswith("_linux64.AppImage")) | .browser_download_url') && \
   curl -o \
     /tmp/rpcs3.app -L \
     "${RPCS3_URL}" && \
@@ -471,7 +486,7 @@ RUN \
   echo "**** install xemu ****" && \
   mkdir /tmp/xemu && \
   XEMU_URL=$(curl -sX GET "https://api.github.com/repos/xemu-project/xemu/releases" \
-    | awk -F '(": "|")' '/browser.*x86_64.AppImage/ && !/.*dbg.*/ {print $3;exit}') && \
+    | jq -er 'first(.[].assets[] | select(.name | endswith("-x86_64.AppImage") and (contains("dbg") | not)) | .browser_download_url)') && \
   curl -o \
     /tmp/xemu/xemu.app -L \
     "${XEMU_URL}" && \
@@ -498,7 +513,7 @@ RUN \
   echo "**** install shadps4qt ****" && \
   mkdir /tmp/shadps4 && \
   SHADPS4_VERSION=$(curl -sX GET "https://api.github.com/repos/shadps4-emu/shadps4-qtlauncher/releases" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]') && \
+    | jq -er '.[0].tag_name') && \
   SHORT_VERSION=$(echo "$SHADPS4_VERSION" | sed 's/shadPS4QtLauncher-//' | cut -c 1-18) && \
   curl -o \
     /tmp/shadps4/shad.zip -L \
@@ -511,7 +526,7 @@ RUN \
     squashfs-root \
     /opt/shadps4 && \
   PKG_URL=$(curl -sX GET "https://api.github.com/repos/AzaharPlus/shadPS4Plus/releases/latest" \
-    | awk -F '(": "|")' '/browser.*linux.zip/ {print $3}') && \
+    | jq -er '.assets[] | select(.name | endswith("-linux.zip")) | .browser_download_url') && \
   curl -o \
     /tmp/pkg.zip -L \
     "${PKG_URL}" && \
@@ -526,7 +541,7 @@ RUN \
   echo "**** install flips ****" && \
   mkdir /tmp/flips && \
   FLIPS_URL=$(curl -sX GET "https://api.github.com/repos/Alcaro/Flips/releases/latest" \
-    | awk -F '(": "|")' '/browser.*-linux.zip/ {print $3}') && \
+    | jq -er '.assets[] | select(.name | endswith("-linux.zip")) | .browser_download_url') && \
   curl -o \
     /tmp/flips/flips.zip -L \
     "${FLIPS_URL}" && \
@@ -541,7 +556,7 @@ RUN \
   mkdir -p /tmp/broker && \
   if [ -z ${BROKER_RELEASE+x} ]; then \
     BROKER_RELEASE=$(curl -sX GET "https://api.github.com/repos/romm-streaming/romm-broker/releases/latest" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]'); \
+    | jq -er '.tag_name'); \
   fi && \
   curl -o \
     /tmp/broker.tar.gz -L \

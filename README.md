@@ -647,5 +647,6 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **13.08.26:** - Add Azahar emulator.
 * **11.08.26:** - Add Cemu emulator.
 * **08.08.26:** - Initial release.
