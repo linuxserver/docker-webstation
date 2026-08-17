@@ -85,7 +85,6 @@ init_diagram: |
     svc-xorg -> svc-dbus
     svc-dbus -> legacy-services
     init-services -> svc-de
-    legacy-cont-init -> svc-de
     svc-nginx -> svc-de
     svc-selkies -> svc-de
     svc-xorg -> svc-de
@@ -111,7 +110,7 @@ init_diagram: |
     svc-xsettingsd -> legacy-services
   }
   Base Images: {
-    "baseimage-selkies:ubunturesolute" <- "baseimage-ubuntu:resolute"
+    "baseimage-selkies:dev" <- "baseimage-ubuntu:resolute"
   }
   "webstation:romm" <- Base Images
 # changelog
