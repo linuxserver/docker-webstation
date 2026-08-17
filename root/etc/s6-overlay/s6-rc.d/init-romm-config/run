@@ -7,6 +7,13 @@ if [ -z "${SELKIES_MASTER_TOKEN}" ]; then
 fi
 printf "%s" "${SELKIES_MASTER_TOKEN}" > /run/s6/container_environment/SELKIES_MASTER_TOKEN
 
+# handle subfolder pathing
+SFOLDER="${SUBFOLDER:-/streaming/}"
+SFOLDER="/${SFOLDER#/}"
+SFOLDER="${SFOLDER%/}/"
+printf "%s" "${SFOLDER}stream/" > /run/s6/container_environment/SELKIES_SUBFOLDER
+printf "%s" "http://127.0.0.1:${CUSTOM_WS_PORT:-8082}${SFOLDER}stream" > /run/s6/container_environment/SELKIES_CONTROL_URL
+
 # modify nginx ports for broker
 NGINX_CONFIG=/etc/nginx/sites-available/default
 if [[ "${BROKER_DEV_MODE,,}" == "true" ]]; then

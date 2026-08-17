@@ -1,8 +1,8 @@
 #!/usr/bin/with-contenv bash
 
 # sleep for selkies
-echo "[svc-broker] waiting for selkies control port 8083"
-until curl -s -o /dev/null http://127.0.0.1:8083; do
+echo "[svc-broker] waiting for selkies control plane at ${SELKIES_CONTROL_URL}"
+until curl -sf -o /dev/null "${SELKIES_CONTROL_URL}/api/status"; do
   sleep 1
 done
 echo "[svc-broker] selkies control plane is up"

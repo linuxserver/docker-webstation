@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute AS dolphin
+FROM ghcr.io/linuxserver/baseimage-selkies:dev AS dolphin
 
 RUN \
   echo "**** install build deps ****" && \
@@ -43,7 +43,7 @@ RUN \
   make -j16 && \
   make install DESTDIR=/root-out
 
-FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute AS eden
+FROM ghcr.io/linuxserver/baseimage-selkies:dev AS eden
 
 RUN \
   echo "**** install build deps ****" && \
@@ -148,7 +148,7 @@ RUN \
     dist/icon_variations/base.svg \
     /root-out/usr/share/icons/hicolor/scalable/apps/dev.eden_emu.eden.svg
 
-FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute AS cemu
+FROM ghcr.io/linuxserver/baseimage-selkies:dev AS cemu
 
 RUN \
   echo "**** install build deps ****" && \
@@ -249,7 +249,7 @@ RUN \
     /root-out/usr/share/icons/hicolor/128x128/apps/info.cemu.Cemu.png
 
 # runtime stage
-FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute
+FROM ghcr.io/linuxserver/baseimage-selkies:dev
 
 # set version label
 ARG BUILD_DATE
@@ -260,6 +260,7 @@ LABEL maintainer="thelamer"
 
 ENV TITLE="Webstation" \
     NO_FULL=true \
+    SELKIES_RATE_CONTROL_MODE=cbr \
     PIXELFLUX_WAYLAND=true \
     SUBFOLDER="/streaming/" \
     DOOMWADDIR="/config"
