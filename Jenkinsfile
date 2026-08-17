@@ -605,7 +605,7 @@ pipeline {
           --label \"org.opencontainers.image.title=Webstation\" \
           --label \"org.opencontainers.image.description=[Webstation romm-broker](https://github.com/romm-streaming/romm-broker) is a sidecar container to enable collaborative streaming sessions from the [ROMM](https://romm.app/) web interface.\" \
           --no-cache --pull -t ${IMAGE}:${META_TAG} --platform=linux/amd64 \
-          --provenance=true --sbom=true --builder=container --load \
+          --provenance=true --sbom=false --builder=container --load \
           --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
         sh '''#! /bin/bash
               set -e
@@ -674,7 +674,7 @@ pipeline {
               --label \"org.opencontainers.image.title=Webstation\" \
               --label \"org.opencontainers.image.description=[Webstation romm-broker](https://github.com/romm-streaming/romm-broker) is a sidecar container to enable collaborative streaming sessions from the [ROMM](https://romm.app/) web interface.\" \
               --no-cache --pull -t ${IMAGE}:amd64-${META_TAG} --platform=linux/amd64 \
-              --provenance=true --sbom=true --builder=container --load \
+              --provenance=true --sbom=false --builder=container --load \
               --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
             sh '''#! /bin/bash
                   set -e
@@ -736,7 +736,7 @@ pipeline {
               --label \"org.opencontainers.image.title=Webstation\" \
               --label \"org.opencontainers.image.description=[Webstation romm-broker](https://github.com/romm-streaming/romm-broker) is a sidecar container to enable collaborative streaming sessions from the [ROMM](https://romm.app/) web interface.\" \
               --no-cache --pull -f Dockerfile.aarch64 -t ${IMAGE}:arm64v8-${META_TAG} --platform=linux/arm64 \
-              --provenance=true --sbom=true --builder=container --load \
+              --provenance=true --sbom=false --builder=container --load \
               --build-arg ${BUILD_VERSION_ARG}=${EXT_RELEASE} --build-arg VERSION=\"${VERSION_TAG}\" --build-arg BUILD_DATE=${GITHUB_DATE} ."
             sh '''#! /bin/bash
                   set -e

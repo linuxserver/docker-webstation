@@ -7,6 +7,7 @@ release_type: prerelease
 release_tag: romm
 ls_branch: romm
 build_armhf: false
+image_sbom: false
 repo_vars:
   - EXT_USER = 'romm-streaming'
   - EXT_REPO = 'romm-broker'
