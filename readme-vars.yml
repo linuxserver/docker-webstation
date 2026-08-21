@@ -108,6 +108,7 @@ init_diagram: |
   "webstation:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "21.08.26:", desc: "Add Xenia Edge emulator."}
   - {date: "13.08.26:", desc: "Add Azahar emulator."}
   - {date: "10.08.26:", desc: "Add Cemu emulator."}
   - {date: "05.05.26:", desc: "Rebase to resolute."}

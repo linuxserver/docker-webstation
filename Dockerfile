@@ -405,7 +405,7 @@ RUN \
     /usr/bin/duckstation-qt && \
   echo "**** install flycast ****" && \
   FLYCAST_URL=$(curl -sX GET "https://api.github.com/repos/flyinghead/flycast/releases/latest" \
-    | jq -er '.assets[] | select(.name | endswith("-x86_64.AppImage")) | .browser_download_url') && \
+    | jq -er '.assets[] | select(.name | endswith(".AppImage")) | .browser_download_url') && \
   curl -o \
     /tmp/fly.app -L \
     "${FLYCAST_URL}" && \
@@ -451,6 +451,21 @@ RUN \
   mv \
     melonDS \
     /usr/bin && \
+  echo "**** install xenia-edge ****" && \
+  XENIA_VERSION=$(curl -sX GET "https://api.github.com/repos/has207/xenia-edge/releases/latest" \
+    | jq -er '.tag_name') && \
+  curl -o \
+    /tmp/xenia.app -L \
+    "https://github.com/has207/xenia-edge/releases/download/${XENIA_VERSION}/xenia_edge_linux.AppImage" && \
+  cd /tmp && \
+  chmod +x xenia.app && \
+  ./xenia.app --appimage-extract && \
+  mv \
+    squashfs-root \ 
+    /opt/xenia && \
+  ln -s \
+    /opt/xenia/AppRun \
+    /usr/bin/xenia && \
   echo "**** install modrinth ****" && \
   MODRINTH_VERSION=$(curl -sX GET "https://api.github.com/repos/modrinth/code/releases/latest" \
     | jq -er '.tag_name') && \

@@ -645,6 +645,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **21.08.26:** - Add Xenia Edge emulator.
 * **13.08.26:** - Add Azahar emulator.
 * **10.08.26:** - Add Cemu emulator.
 * **05.05.26:** - Rebase to resolute.
