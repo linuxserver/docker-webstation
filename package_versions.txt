@@ -147,7 +147,7 @@ dpkg                                                                          1.
 dunst                                                                         1.12.2-1build1                          deb                         
 e2fsprogs                                                                     1.47.2-3ubuntu4                         deb                         
 eastasianwidth                                                                0.2.0                                   npm                         
-eduke32                                                                       20260203.10664-1xtradeb1.2610.1         deb                         
+eduke32                                                                       20260807.10669-1xtradeb1.2604.1         deb                         
 eduke32-shareware-episode                                                     1.3-1xtradeb1.2604.1                    deb                         
 emacsen-common                                                                3.0.8build1                             deb                         
 emoji-regex                                                                   8.0.0                                   npm                         
