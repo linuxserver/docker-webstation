@@ -68,3 +68,9 @@ if [ ! -d "$HOME/.config/azahar-emu" ]; then
     /defaults/azahar.ini \
     "$HOME/.config/azahar-emu/qt-config.ini"
 fi
+# Cemu
+if [ ! -d "${HOME}/.config/Cemu" ]; then
+  cp -r \
+    /defaults/Cemu \
+    "${HOME}/.config/"
+fi
