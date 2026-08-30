@@ -1644,7 +1644,7 @@ walk-up-path                                                                  3.
 watchdog                                                                      6.0.0                                   python                      
 watchfiles                                                                    1.2.0                                   python                      
 websockets                                                                    17.1                                    python                      
-webstation-broker                                                             0.6.0                                   python                      
+webstation-broker                                                             0.7.0                                   python                      
 wheel                                                                         0.45.1                                  python                      
 wheel                                                                         0.46.3                                  python                      
 which                                                                         2.0.2                                   npm                         
