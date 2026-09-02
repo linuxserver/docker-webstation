@@ -69,8 +69,8 @@ binutils-x86-64-linux-gnu                                                     2.
 blinker                                                                       1.9.0                                   python                      
 brace-expansion                                                               2.0.2                                   npm                         
 breeze-cursor-theme                                                           4:6.6.5-0ubuntu0.1                      deb                         
-bsdextrautils                                                                 2.41.3-3ubuntu2                         deb                         
-bsdutils                                                                      1:2.41.3-3ubuntu2                       deb                         
+bsdextrautils                                                                 2.41.3-3ubuntu2.2                       deb                         
+bsdutils                                                                      1:2.41.3-3ubuntu2.2                     deb                         
 bubblewrap                                                                    0.11.1-1ubuntu0.1                       deb                         
 ca-certificates                                                               20260601~26.04.1                        deb                         
 cacache                                                                       19.0.1                                  npm                         
@@ -79,8 +79,8 @@ certifi                                                                       20
 cffi                                                                          2.1.1                                   python                      
 chalk                                                                         5.6.2                                   npm                         
 chownr                                                                        3.0.0                                   npm                         
-chromium                                                                      151.0.7922.173-1xtradeb1.2604.1         deb                         
-chromium-common                                                               151.0.7922.173-1xtradeb1.2604.1         deb                         
+chromium                                                                      152.0.7977.64-1xtradeb1.2604.1          deb                         
+chromium-common                                                               152.0.7977.64-1xtradeb1.2604.1          deb                         
 ci-info                                                                       4.4.0                                   npm                         
 cidr-regex                                                                    4.1.3                                   npm                         
 cli-columns                                                                   4.0.0                                   npm                         
@@ -100,7 +100,7 @@ common-ancestor-path                                                          1.
 console-data                                                                  2:1.12-10                               deb                         
 console-setup                                                                 1.237ubuntu3.1                          deb                         
 console-setup-linux                                                           1.237ubuntu3.1                          deb                         
-containerd.io                                                                 2.3.3-1~ubuntu.26.04~resolute           deb                         
+containerd.io                                                                 2.3.4-1~ubuntu.26.04~resolute           deb                         
 corepack                                                                      0.34.6                                  npm                         
 coreutils                                                                     9.5-1ubuntu2+0.0.0~ubuntu25             deb                         
 coreutils-from-uutils                                                         0.0.0~ubuntu25                          deb                         
@@ -268,7 +268,8 @@ github.com/containerd/btrfs/v2                                                v2
 github.com/containerd/cgroups/v3                                              v3.1.3                                  go-module  (+3 duplicates)  
 github.com/containerd/console                                                 v1.0.5                                  go-module  (+6 duplicates)  
 github.com/containerd/containerd/api                                          v1.11.1                                 go-module  (+5 duplicates)  
-github.com/containerd/containerd/v2                                           v2.3.3                                  go-module  (+5 duplicates)  
+github.com/containerd/containerd/v2                                           v2.3.3                                  go-module  (+2 duplicates)  
+github.com/containerd/containerd/v2                                           v2.3.4                                  go-module  (+2 duplicates)  
 github.com/containerd/continuity                                              v0.5.0                                  go-module  (+5 duplicates)  
 github.com/containerd/errdefs                                                 v1.0.0                                  go-module  (+5 duplicates)  
 github.com/containerd/errdefs/pkg                                             v0.3.0                                  go-module  (+5 duplicates)  
@@ -709,6 +710,7 @@ jaraco-functools                                                              4.
 jaraco-text                                                                   3.12.1                                  python                      
 jaraco-text                                                                   4.0.0                                   python                      
 jq                                                                            1.8.1-4ubuntu2                          deb                         
+jq                                                                            1.8.2                                   binary                      
 json-parse-even-better-errors                                                 4.0.0                                   npm                         
 json-stringify-nice                                                           1.1.4                                   npm                         
 jsonparse                                                                     1.3.1                                   npm                         
@@ -716,13 +718,16 @@ jstest-gtk                                                                    0.
 just-diff                                                                     6.0.2                                   npm                         
 just-diff-apply                                                               5.5.0                                   npm                         
 k8s.io/api                                                                    v0.36.0                                 go-module                   
-k8s.io/apimachinery                                                           v0.36.0                                 go-module  (+3 duplicates)  
-k8s.io/client-go                                                              v0.36.0                                 go-module  (+1 duplicate)   
-k8s.io/cri-api                                                                v0.36.0                                 go-module                   
-k8s.io/cri-streaming                                                          v0.36.0                                 go-module                   
+k8s.io/apimachinery                                                           v0.36.0                                 go-module  (+1 duplicate)   
+k8s.io/apimachinery                                                           v0.36.3                                 go-module  (+1 duplicate)   
+k8s.io/client-go                                                              v0.36.0                                 go-module                   
+k8s.io/client-go                                                              v0.36.3                                 go-module                   
+k8s.io/cri-api                                                                v0.36.3                                 go-module                   
+k8s.io/cri-streaming                                                          v0.36.3                                 go-module                   
 k8s.io/klog/v2                                                                v2.140.0                                go-module  (+3 duplicates)  
 k8s.io/kube-openapi                                                           v0.0.0-20260319004828-5883c5ee87b9      go-module                   
-k8s.io/streaming                                                              v0.36.0                                 go-module  (+1 duplicate)   
+k8s.io/streaming                                                              v0.36.0                                 go-module                   
+k8s.io/streaming                                                              v0.36.3                                 go-module                   
 k8s.io/utils                                                                  v0.0.0-20260319190234-28399d86e0b5      go-module  (+1 duplicate)   
 kbd                                                                           2.7.1-2ubuntu2                          deb                         
 keyboard-configuration                                                        1.237ubuntu3.1                          deb                         
@@ -770,7 +775,7 @@ libavutil60                                                                   7:
 libb2-1                                                                       0.98.1-1.1build2                        deb                         
 libbacktrace0                                                                 0.1-4build1                             deb                         
 libbinutils                                                                   2.46-3ubuntu2                           deb                         
-libblkid1                                                                     2.41.3-3ubuntu2                         deb                         
+libblkid1                                                                     2.41.3-3ubuntu2.2                       deb                         
 libbluetooth3                                                                 5.85-4ubuntu0.1                         deb                         
 libbluray3                                                                    1:1.4.1-1                               deb                         
 libboost-context1.90.0                                                        1.90.0-6ubuntu1                         deb                         
@@ -781,7 +786,7 @@ libbpf1                                                                       1:
 libbrotli1                                                                    1.2.0-3build1                           deb                         
 libbs2b0                                                                      3.1.0+dfsg-8build1                      deb                         
 libbsd0                                                                       0.12.2-2build2                          deb                         
-libbz2-1.0                                                                    1.0.8-6build2                           deb                         
+libbz2-1.0                                                                    1.0.8-6ubuntu0.1                        deb                         
 libc-bin                                                                      2.43-2ubuntu2.3                         deb                         
 libc-dev-bin                                                                  2.43-2ubuntu2.3                         deb                         
 libc-gconv-modules-extra                                                      2.43-2ubuntu2.3                         deb                         
@@ -967,7 +972,7 @@ libisl23                                                                      0.
 libitm1                                                                       16-20260322-1ubuntu1                    deb                         
 libjack-jackd2-0                                                              1.9.22~dfsg-5build1                     deb                         
 libjansson4                                                                   2.14-2build4                            deb                         
-libjavascriptcoregtk-4.1-0                                                    2.52.3-0ubuntu0.26.04.3                 deb                         
+libjavascriptcoregtk-4.1-0                                                    2.52.6-0ubuntu0.26.04.1                 deb                         
 libjbig0                                                                      2.1-6.1ubuntu3                          deb                         
 libjbig2dec0                                                                  0.20-1ubuntu0.26.04.1                   deb                         
 libjpeg-turbo8                                                                2.1.5-4ubuntu4                          deb                         
@@ -1013,9 +1018,9 @@ libmd4c0                                                                      0.
 libmenu-cache-bin                                                             1.1.1-1build1                           deb                         
 libmenu-cache3                                                                1.1.1-1build1                           deb                         
 libminiupnpc21                                                                2.3.3-2build1                           deb                         
-libminizip1t64                                                                1:1.3.dfsg+really1.3.1-1ubuntu3         deb                         
+libminizip1t64                                                                1:1.3.dfsg+really1.3.1-1ubuntu3.1       deb                         
 libmnl0                                                                       1.0.5-3build1                           deb                         
-libmount1                                                                     2.41.3-3ubuntu2                         deb                         
+libmount1                                                                     2.41.3-3ubuntu2.2                       deb                         
 libmp3lame0                                                                   3.101~svn6525+dfsg-2                    deb                         
 libmpc3                                                                       1.3.1-3                                 deb                         
 libmpcdec6                                                                    2:0.1~r495-3build1                      deb                         
@@ -1196,7 +1201,7 @@ libsimpleini1t64                                                              4.
 libsixel1                                                                     1.10.5-1build1                          deb                         
 libslang2                                                                     2.3.3-5build1                           deb                         
 libsm6                                                                        2:1.2.6-1build1                         deb                         
-libsmartcols1                                                                 2.41.3-3ubuntu2                         deb                         
+libsmartcols1                                                                 2.41.3-3ubuntu2.2                       deb                         
 libsnapd-glib-2-1                                                             1.72-0ubuntu3                           deb                         
 libsnappy1v5                                                                  1.2.2-2                                 deb                         
 libsndfile1                                                                   1.2.2-4                                 deb                         
@@ -1219,9 +1224,9 @@ libsqlite3-0                                                                  3.
 libsratom-0-0                                                                 0.6.20-1                                deb                         
 libsrt1.5-gnutls                                                              1.5.4-3                                 deb                         
 libss2                                                                        1.47.2-3ubuntu4                         deb                         
-libssh-4                                                                      0.11.3-1ubuntu2                         deb                         
+libssh-4                                                                      0.11.3-1ubuntu2.1                       deb                         
 libssh2-1t64                                                                  1.11.1-1ubuntu0.26.04.3                 deb                         
-libssl3t64                                                                    3.5.5-1ubuntu3.4                        deb                         
+libssl3t64                                                                    3.5.5-1ubuntu3.5                        deb                         
 libstartup-notification0                                                      0.12-8build1                            deb                         
 libstdc++-15-dev                                                              15.2.0-16ubuntu1                        deb                         
 libstdc++6                                                                    16-20260322-1ubuntu1                    deb                         
@@ -1259,7 +1264,7 @@ liburing2                                                                     2.
 libusb-1.0-0                                                                  2:1.0.29-2build1                        deb                         
 libutempter0                                                                  1.2.1-4build1                           deb                         
 libutf8proc3                                                                  2.10.0-2                                deb                         
-libuuid1                                                                      2.41.3-3ubuntu2                         deb                         
+libuuid1                                                                      2.41.3-3ubuntu2.2                       deb                         
 libuv1t64                                                                     1.51.0-2ubuntu1                         deb                         
 libv4l-0t64                                                                   1.32.0-2ubuntu1                         deb                         
 libv4lconvert0t64                                                             1.32.0-2ubuntu1                         deb                         
@@ -1282,7 +1287,7 @@ libwayland-client0                                                            1.
 libwayland-cursor0                                                            1.24.0-2                                deb                         
 libwayland-egl1                                                               1.24.0-2                                deb                         
 libwayland-server0                                                            1.24.0-2                                deb                         
-libwebkit2gtk-4.1-0                                                           2.52.3-0ubuntu0.26.04.3                 deb                         
+libwebkit2gtk-4.1-0                                                           2.52.6-0ubuntu0.26.04.1                 deb                         
 libwebp7                                                                      1.5.0-0.1build1                         deb                         
 libwebpdemux2                                                                 1.5.0-0.1build1                         deb                         
 libwebpmux3                                                                   1.5.0-0.1build1                         deb                         
@@ -1376,7 +1381,7 @@ libzvbi0t64                                                                   0.
 linux-libc-dev                                                                7.0.0-30.30                             deb                         
 locales                                                                       2.43-2ubuntu2.3                         deb                         
 locales-all                                                                   2.43-2ubuntu2.3                         deb                         
-login                                                                         1:4.16.0-2+really2.41.3-3ubuntu2        deb                         
+login                                                                         1:4.16.0-2+really2.41.3-3ubuntu2.2      deb                         
 login.defs                                                                    1:4.17.4-2ubuntu3                       deb                         
 logsave                                                                       1.47.2-3ubuntu4                         deb                         
 lru-cache                                                                     10.4.3                                  npm                         
@@ -1400,10 +1405,10 @@ minipass-flush                                                                1.
 minipass-pipeline                                                             1.2.4                                   npm                         
 minipass-sized                                                                1.0.3                                   npm                         
 minizlib                                                                      3.1.0                                   npm                         
-modrinth-app                                                                  0.19.1                                  deb                         
+modrinth-app                                                                  0.19.2                                  deb                         
 more-itertools                                                                10.3.0                                  python                      
 more-itertools                                                                10.8.0                                  python                      
-mount                                                                         2.41.3-3ubuntu2                         deb                         
+mount                                                                         2.41.3-3ubuntu2.2                       deb                         
 ms                                                                            2.1.3                                   npm                         
 msgpack                                                                       1.2.2                                   python                      
 multidict                                                                     6.7.1                                   python                      
@@ -1438,8 +1443,8 @@ oauthlib                                                                      3.
 ocl-icd-libopencl1                                                            2.3.4-1                                 deb                         
 openbox                                                                       3.6.1-12ubuntu3                         deb                         
 openssh-client                                                                1:10.2p1-2ubuntu3.5                     deb                         
-openssl                                                                       3.5.5-1ubuntu3.4                        deb                         
-openssl-provider-legacy                                                       3.5.5-1ubuntu3.4                        deb                         
+openssl                                                                       3.5.5-1ubuntu3.5                        deb                         
+openssl-provider-legacy                                                       3.5.5-1ubuntu3.5                        deb                         
 p-map                                                                         7.0.4                                   npm                         
 p11-kit                                                                       0.26.2-2                                deb                         
 p11-kit-modules                                                               0.26.2-2                                deb                         
@@ -1492,8 +1497,8 @@ pulseaudio-utils                                                              1:
 pulsectl                                                                      24.12.0                                 python                      
 pulsectl-asyncio                                                              1.3.2                                   python                      
 pycparser                                                                     3.0                                     python                      
-pydantic                                                                      2.13.4                                  python                      
-pydantic-core                                                                 2.46.4                                  python                      
+pydantic                                                                      2.13.5                                  python                      
+pydantic-core                                                                 2.46.5                                  python                      
 pyee                                                                          14.0.0                                  python                      
 pyfatx                                                                        0.0.8                                   python                      
 pygobject                                                                     3.56.2                                  python                      
@@ -1589,8 +1594,7 @@ sse3-support                                                                  27
 ssl-cert                                                                      1.1.3ubuntu2                            deb                         
 ssri                                                                          12.0.0                                  npm                         
 starlette                                                                     1.6.0                                   python                      
-stdlib                                                                        go1.26.3                                go-module  (+3 duplicates)  
-stdlib                                                                        go1.26.5                                go-module  (+4 duplicates)  
+stdlib                                                                        go1.26.5                                go-module  (+8 duplicates)  
 stdlib                                                                        go1.26.6                                go-module                   
 string-width                                                                  4.2.3                                   npm        (+1 duplicate)   
 string-width                                                                  5.1.2                                   npm        (+1 duplicate)   
@@ -1633,7 +1637,7 @@ unzip                                                                         6.
 user-session-migration                                                        0.5.1                                   deb                         
 util-deprecate                                                                1.0.2                                   npm                         
 util-linux                                                                    2.41-5                                  deb                         
-util-linux                                                                    2.41.3-3ubuntu2                         deb                         
+util-linux                                                                    2.41.3-3ubuntu2.2                       deb                         
 uvicorn                                                                       0.52.4                                  python                      
 uvloop                                                                        0.22.1                                  python                      
 validate-npm-package-license                                                  3.0.4                                   npm                         
@@ -1697,5 +1701,5 @@ zenity                                                                        4.
 zenity-common                                                                 4.2.1-1                                 deb                         
 zipp                                                                          3.19.2                                  python                      
 zipp                                                                          3.23.0                                  python                      
-zlib1g                                                                        1:1.3.dfsg+really1.3.1-1ubuntu3         deb                         
+zlib1g                                                                        1:1.3.dfsg+really1.3.1-1ubuntu3.1       deb                         
 zstd                                                                          1.5.7+dfsg-3                            deb                         
