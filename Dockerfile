@@ -556,7 +556,7 @@ RUN \
     /usr/local/bin/ && \
   echo "**** install flips ****" && \
   mkdir /tmp/flips && \
-  FLIPS_URL=$(curl -sX GET "https://api.github.com/repos/Alcaro/Flips/releases/latest" \
+  FLIPS_URL=$(curl -sLX GET "https://api.github.com/repos/Alcaro/Flips/releases/latest" \
     | jq -er '.assets[] | select(.name | endswith("-linux.zip")) | .browser_download_url') && \
   curl -o \
     /tmp/flips/flips.zip -L \
