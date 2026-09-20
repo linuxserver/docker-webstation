@@ -170,8 +170,8 @@ fonts-droid-fallback                                                          1:
 fonts-noto-cjk                                                                1:20240730+repack1-1build1              deb                         
 fonts-noto-color-emoji                                                        2.051-1build1                           deb                         
 fonts-noto-core                                                               20201225-2build1                        deb                         
-fonts-noto-extra                                                              20201225-2build1                        deb                         
 fonts-noto-mono                                                               20201225-2build1                        deb                         
+fonts-open-sans                                                               1.11-2build1                            deb                         
 fonts-roboto-unhinted                                                         2:0~20170802-6                          deb                         
 fonts-urw-base35                                                              20200910-8build1                        deb                         
 foot                                                                          1.25.0-1                                deb                         
@@ -1595,7 +1595,7 @@ read-package-json-fast                                                        4.
 readline-common                                                               8.3-4                                   deb                         
 resenje.org/singleflight                                                      v0.4.3                                  go-module                   
 retroarch                                                                     1.22.2+ppa1.1-1~ubuntu26.04.1           deb                         
-retroarch-assets                                                              1.20.0+dfsg-1                           deb                         
+retroarch-assets                                                              1.22.2+ds1+ppa1-1~ubuntu26.04.1         deb                         
 retry                                                                         0.12.0                                  npm                         
 rpcsvc-proto                                                                  1.4.3-1build1                           deb                         
 rust-coreutils                                                                0.8.0-0ubuntu3                          deb                         
