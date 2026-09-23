@@ -1,4 +1,4 @@
-FROM lsiodev/selkies-base:ubunturesolute-version-5501a314 AS dolphin
+FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute AS dolphin
 
 RUN \
   echo "**** install build deps ****" && \
@@ -43,7 +43,7 @@ RUN \
   make -j16 && \
   make install DESTDIR=/root-out
 
-FROM lsiodev/selkies-base:ubunturesolute-version-5501a314 AS eden
+FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute AS eden
 
 RUN \
   echo "**** install build deps ****" && \
@@ -148,7 +148,7 @@ RUN \
     dist/icon_variations/base.svg \
     /root-out/usr/share/icons/hicolor/scalable/apps/dev.eden_emu.eden.svg
 
-FROM lsiodev/selkies-base:ubunturesolute-version-5501a314 AS cemu
+FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute AS cemu
 
 RUN \
   echo "**** install build deps ****" && \
@@ -249,7 +249,7 @@ RUN \
     /root-out/usr/share/icons/hicolor/128x128/apps/info.cemu.Cemu.png
 
 # runtime stage
-FROM lsiodev/selkies-base:ubunturesolute-version-5501a314
+FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute
 
 # set version label
 ARG BUILD_DATE
@@ -311,6 +311,7 @@ RUN \
     libqt6webenginewidgets6 \
     libquazip1-qt6-1t64 \
     libsdl2-2.0-0 \
+    libshaderc1 \
     libsimpleini1t64 \
     libssl3t64 \
     libusb-1.0-0 \
