@@ -395,7 +395,7 @@ RUN \
     /tmp/dosbox.tar.xz -C \
     /opt/dosbox --strip-components=1 && \
   echo "**** install duckstation ****" && \
-  DUCKSTATON_URL=$(curl -sX GET "https://api.github.com/repos/stenzek/duckstation/releases/latest" \
+  DUCKSTATION_URL=$(curl -sX GET "https://api.github.com/repos/stenzek/duckstation/releases/latest" \
     | jq -er '.assets[] | select(.name == "DuckStation-x64.AppImage") | .browser_download_url') && \
   curl -o \
     /tmp/duck.app -L \
