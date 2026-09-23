@@ -395,11 +395,11 @@ RUN \
     /tmp/dosbox.tar.xz -C \
     /opt/dosbox --strip-components=1 && \
   echo "**** install duckstation ****" && \
-  DOSBOX_URL=$(curl -sX GET "https://api.github.com/repos/stenzek/duckstation/releases/latest" \
+  DUCKSTATON_URL=$(curl -sX GET "https://api.github.com/repos/stenzek/duckstation/releases/latest" \
     | jq -er '.assets[] | select(.name == "DuckStation-x64.AppImage") | .browser_download_url') && \
   curl -o \
     /tmp/duck.app -L \
-    "${DOSBOX_URL}" && \
+    "${DUCKSTATION_URL}" && \
   cd /tmp && \
   chmod +x duck.app && \
   ./duck.app --appimage-extract && \
@@ -409,9 +409,6 @@ RUN \
   ln -s \
     /opt/duckstation/AppRun \
     /usr/bin/duckstation-qt && \
-  ln -s \
-    /opt/duckstation/usr/bin/libshaderc_shared.so \
-    /usr/lib/x86_64-linux-gnu/libshaderc.so.1 && \
   echo "**** install flycast ****" && \
   FLYCAST_URL=$(curl -sX GET "https://api.github.com/repos/flyinghead/flycast/releases/latest" \
     | jq -er '.assets[] | select(.name | endswith(".AppImage")) | .browser_download_url') && \
