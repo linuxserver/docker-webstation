@@ -309,6 +309,7 @@ RUN \
     libqt6webenginewidgets6 \
     libquazip1-qt6-1t64 \
     libsdl2-2.0-0 \
+    libshaderc1 \
     libsimpleini1t64 \
     libssl3t64 \
     libusb-1.0-0 \
@@ -389,11 +390,11 @@ RUN \
     /tmp/dosbox.tar.xz -C \
     /opt/dosbox --strip-components=1 && \
   echo "**** install duckstation ****" && \
-  DOSBOX_URL=$(curl -sX GET "https://api.github.com/repos/stenzek/duckstation/releases/latest" \
+  DUCKSTATION_URL=$(curl -sX GET "https://api.github.com/repos/stenzek/duckstation/releases/latest" \
     | jq -er '.assets[] | select(.name == "DuckStation-x64.AppImage") | .browser_download_url') && \
   curl -o \
     /tmp/duck.app -L \
-    "${DOSBOX_URL}" && \
+    "${DUCKSTATION_URL}" && \
   cd /tmp && \
   chmod +x duck.app && \
   ./duck.app --appimage-extract && \

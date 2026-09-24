@@ -35,7 +35,7 @@ app_setup_block: |
 
   * https://yourhost:3001/
 
-  **This image only runs in Wayland mode and should be run with a GPU**
+  **This image should be run with a GPU**
 # init diagram
 init_diagram: |
   "webstation:latest": {
@@ -109,6 +109,7 @@ init_diagram: |
   "webstation:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "23.09.26:", desc: "Updates for selkies v2, add X11 support."}
   - {date: "21.08.26:", desc: "Add Xenia Edge emulator."}
   - {date: "13.08.26:", desc: "Add Azahar emulator."}
   - {date: "10.08.26:", desc: "Add Cemu emulator."}

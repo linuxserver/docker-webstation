@@ -3,8 +3,8 @@
 	<type>Wii U Pro Controller</type>
 	<controller>
 		<api>SDLController</api>
-		<uuid>1_000081b84d6963726f736f6674205800</uuid>
-		<display_name>Microsoft X-Box 360 pad</display_name>
+		<uuid>1_030081b85e0400008e02000014010000</uuid>
+		<display_name>X360 Controller</display_name>
 		<rumble>0</rumble>
 		<axis>
 			<deadzone>0.25</deadzone>
