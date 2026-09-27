@@ -29,8 +29,8 @@ RUN \
 
 RUN \
   echo "**** build dolphin ****" && \
-  DOLPHIN_VERSION=$(curl -sL 'https://dolphin-emu.org/download/' \
-    | awk -F '(dolphin-|-x86_64.flatpak)' '/-x86_64.flatpak/ {print $3;exit}') && \
+  DOLPHIN_VERSION=$(curl -sX GET "https://api.github.com/repos/dolphin-emu/dolphin/tags?per_page=50" \
+    | jq -er '[.[].name | select(test("^[0-9]{4}[a-z]?$"))] | max') && \
   mkdir /root-out && \
   git clone https://github.com/dolphin-emu/dolphin.git && \
   cd dolphin && \
@@ -285,7 +285,7 @@ RUN \
     eduke32-shareware-episode \
     featherpad \
     gnome-keyring \
-    ibsdl2-2.0-0 \
+    libsdl2-2.0-0 \
     jstest-gtk \
     libavcodec62 \
     libbluetooth3 \
