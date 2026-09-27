@@ -1474,7 +1474,7 @@ minipass-flush                                                                1.
 minipass-pipeline                                                             1.2.4                                   npm                         
 minipass-sized                                                                1.0.3                                   npm                         
 minizlib                                                                      3.1.0                                   npm                         
-modrinth-app                                                                  0.21.5                                  deb                         
+modrinth-app                                                                  0.21.6                                  deb                         
 more-itertools                                                                10.3.0                                  python                      
 more-itertools                                                                10.8.0                                  python                      
 mount                                                                         2.41.3-3ubuntu2.2                       deb                         
