@@ -540,7 +540,6 @@ RUN \
   mv \
     squashfs-root \
     /opt/shadps4 && \
-  find /opt/shadps4 -type d -exec chmod 755 {} + && \
   PKG_URL=$(curl -sX GET "https://api.github.com/repos/AzaharPlus/shadPS4Plus/releases/latest" \
     | jq -er '.assets[] | select(.name | endswith("-linux.zip")) | .browser_download_url') && \
   curl -o \
@@ -587,6 +586,7 @@ RUN \
   mkdir -p /usr/share/webstation-broker && \
   cp -r dist /usr/share/webstation-broker/www && \
   echo "**** cleanup ****" && \
+  find /opt/* -type d -exec chmod 755 {} + && \
   apt-get autoclean && \
   rm -rf \
     /config/.cache \
