@@ -260,7 +260,8 @@ LABEL maintainer="thelamer"
 
 ENV TITLE="Webstation" \
     NO_FULL=true \
-    SELKIES_RATE_CONTROL_MODE=cbr \
+    SELKIES_RATE_CONTROL_MODE="cbr,crf" \
+    SELKIES_USE_PAINT_OVER_QUALITY=true \
     PIXELFLUX_WAYLAND=true \
     SUBFOLDER="/streaming/" \
     DOOMWADDIR="/config" \
