@@ -264,8 +264,7 @@ ENV TITLE="Webstation" \
     SELKIES_USE_PAINT_OVER_QUALITY=true \
     PIXELFLUX_WAYLAND=true \
     SUBFOLDER="/streaming/" \
-    DOOMWADDIR="/config" \
-    PIXELFLUX_CU=5000
+    DOOMWADDIR="/config" 
 
 RUN \
   echo "**** add icon ****" && \
