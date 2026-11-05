@@ -409,22 +409,22 @@ RUN \
   ln -s \
     /opt/duckstation/AppRun \
     /usr/bin/duckstation-qt && \
-  echo "**** install eglantine ****" && \
-  mkdir /tmp/eglantine && \
-  EGLANTINE_URL=$(curl -sX GET "https://api.github.com/repos/Djihads80/Eglantine/releases" \
-    | jq -er 'first(.[].assets[] | select(.name == "eglantine-linux-x86_64-pgo.AppImage") | .browser_download_url)') && \
+  echo "**** install lichii ****" && \
+  mkdir /tmp/lichii && \
+  LICHII_URL=$(curl -sX GET "https://api.github.com/repos/zortos293/Lichii/releases" \
+    | jq -er 'first(.[].assets[] | select(.name == "lichii-linux-x86_64-pgo.AppImage") | .browser_download_url)') && \
   curl -o \
-    /tmp/eglantine/eglantine.app -L \
-    "${EGLANTINE_URL}" && \
-  cd /tmp/eglantine && \
-  chmod +x eglantine.app && \
-  ./eglantine.app --appimage-extract && \
+    /tmp/lichii/lichii.app -L \
+    "${LICHII_URL}" && \
+  cd /tmp/lichii && \
+  chmod +x lichii.app && \
+  ./lichii.app --appimage-extract && \
   mv \
     squashfs-root \
-    /opt/eglantine && \
+    /opt/lichii && \
   ln -s \
-    /opt/eglantine/AppRun \
-    /usr/bin/eglantine && \
+    /opt/lichii/AppRun \
+    /usr/bin/lichii && \
   echo "**** install flycast ****" && \
   FLYCAST_URL=$(curl -sX GET "https://api.github.com/repos/flyinghead/flycast/releases/latest" \
     | jq -er '.assets[] | select(.name | endswith(".AppImage")) | .browser_download_url') && \
@@ -623,6 +623,7 @@ COPY --from=cemu /root-out/ /
 COPY --from=dolphin /root-out/ /
 COPY --from=eden /root-out/ /
 COPY /root /
+COPY /root/defaults/desktop/ /usr/share/applications/
 
 # ports and volumes
 EXPOSE 3001

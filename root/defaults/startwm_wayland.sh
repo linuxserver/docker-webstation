@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
 # Default files
-if [ ! -f "${HOME}"/Desktop/pcsx2-qt.desktop ]; then
-  mkdir -p "${HOME}"/Desktop
-  cp /defaults/desktop/* "${HOME}"/Desktop
-  sudo cp /defaults/desktop/* /usr/share/applications/
-  chmod +x "${HOME}"/Desktop/*.desktop
-fi
+mkdir -p "${HOME}"/Desktop
+for desktop in /defaults/desktop/*.desktop; do
+  name=$(basename "${desktop}")
+  if [ ! -f "${HOME}/Desktop/${name}" ]; then
+    cp "${desktop}" "${HOME}/Desktop/${name}"
+    chmod +x "${HOME}/Desktop/${name}"
+  fi
+done
 
 # shadPS4 loop to extract appimage
 monitor_shadps4_no_fuse() {
