@@ -359,6 +359,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **08.11.26:** - Add Lichii emulator.
 * **23.09.26:** - Updates for selkies v2, add X11 support.
 * **21.08.26:** - Add Xenia Edge emulator.
 * **13.08.26:** - Add Azahar emulator.

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Lichii
+GenericName=Switch Emulator
+Comment=Experimental Nintendo Switch and Switch 2 emulator
+Icon=/opt/lichii/usr/share/icons/hicolor/256x256/apps/io.github.zortos293.lichii.png
+Exec=/opt/lichii/AppRun %f
+Terminal=false
+Categories=Game;Emulator;Qt;
+MimeType=application/x-nx-nro;application/x-nx-nso;application/x-nx-nsp;application/x-nx-xci;
+Keywords=Nintendo;Switch;Lichii;
+StartupWMClass=lichii

@@ -109,6 +109,7 @@ init_diagram: |
   "webstation:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "08.11.26:", desc: "Add Lichii emulator."}
   - {date: "23.09.26:", desc: "Updates for selkies v2, add X11 support."}
   - {date: "21.08.26:", desc: "Add Xenia Edge emulator."}
   - {date: "13.08.26:", desc: "Add Azahar emulator."}
