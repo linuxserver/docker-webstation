@@ -1,0 +1,6 @@
+#! /bin/bash
+
+# force xwayland, the qt wayland backend has ui rendering issues
+export QT_QPA_PLATFORM=xcb
+
+exec /opt/dolphin/AppRun "$@"

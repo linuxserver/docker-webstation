@@ -4,10 +4,8 @@
 mkdir -p "${HOME}"/Desktop
 for desktop in /defaults/desktop/*.desktop; do
   name=$(basename "${desktop}")
-  if [ ! -f "${HOME}/Desktop/${name}" ]; then
-    cp "${desktop}" "${HOME}/Desktop/${name}"
-    chmod +x "${HOME}/Desktop/${name}"
-  fi
+  cp "${desktop}" "${HOME}/Desktop/${name}"
+  chmod +x "${HOME}/Desktop/${name}"
 done
 
 # shadPS4 loop to extract appimage

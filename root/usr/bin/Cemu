@@ -1,0 +1,4 @@
+#! /bin/bash
+
+# apprun resolves its own dir from $0 so it cannot be symlinked
+exec /opt/cemu/AppRun "$@"

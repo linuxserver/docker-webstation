@@ -1,254 +1,3 @@
-FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute AS dolphin
-
-RUN \
-  echo "**** install build deps ****" && \
-  apt-get update && \
-  apt-get install -y \
-    build-essential \
-    cmake \
-    git \
-    libavcodec-dev \
-    libavformat-dev \
-    libavutil-dev \
-    libcurl4-openssl-dev \
-    libegl1-mesa-dev \
-    libevdev-dev \
-    libpulse-dev \
-    libqt6svg6-dev \
-    libswscale-dev \
-    libudev-dev \
-    libvulkan-dev \
-    libx11-dev \
-    libxi-dev \
-    libxrandr-dev \
-    pkg-config \
-    qt6-base-dev \
-    qt6-base-private-dev \
-    qt6-wayland-dev \
-    qt6-wayland-private-dev
-
-RUN \
-  echo "**** build dolphin ****" && \
-  DOLPHIN_VERSION=$(curl -sX GET "https://api.github.com/repos/dolphin-emu/dolphin/tags?per_page=50" \
-  | jq -er '[.[].name | select(test("^[0-9]{4}[a-z]?$"))] | max') && \
-  mkdir /root-out && \
-  git clone https://github.com/dolphin-emu/dolphin.git && \
-  cd dolphin && \
-  echo "**** building dolphin at ${DOLPHIN_VERSION} ****" && \
-  git checkout -f ${DOLPHIN_VERSION} && \
-  git submodule update --init --recursive && \
-  mkdir build && \
-  cd build && \
-  cmake .. && \
-  make -j16 && \
-  make install DESTDIR=/root-out
-
-FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute AS eden
-
-RUN \
-  echo "**** install build deps ****" && \
-  apt-get update && \
-  apt-get install -y \
-    autoconf \
-    cmake \
-    g++ \
-    gcc \
-    git \
-    glslang-tools \
-    libasound2t64 \
-    libavcodec-dev \
-    libavfilter-dev \
-    libboost-context-dev \
-    libboost-fiber-dev \
-    libcpp-httplib-dev \
-    libcpp-jwt-dev \
-    libcubeb-dev \
-    libenet-dev \
-    libfmt-dev \
-    libglu1-mesa-dev \
-    libhidapi-dev \
-    liblz4-dev \
-    libopus-dev \
-    libpulse-dev \
-    libqt6core5compat6 \
-    libquazip1-qt6-dev \
-    libsdl2-dev \
-    libsimpleini-dev \
-    libssl-dev \
-    libswscale-dev \
-    libtool \
-    libudev-dev \
-    libusb-1.0-0-dev \
-    libva-dev \
-    libvdpau-dev \
-    libvulkan-dev \
-    libxcb-icccm4 \
-    libxcb-image0 \
-    libxcb-keysyms1 \
-    libxcb-render-util0 \
-    libxcb-xinerama0 \
-    libxcb-xkb1 \
-    libxext-dev \
-    libxkbcommon-x11-0 \
-    libzstd-dev \
-    mesa-common-dev \
-    nasm \
-    ninja-build \
-    nlohmann-json3-dev \
-    patch \
-    pkg-config \
-    qt6-base-private-dev \
-    qt6-charts-dev \
-    qt6-multimedia-dev \
-    qt6-tools-dev \
-    qt6-webengine-dev \
-    spirv-headers \
-    spirv-tools \
-    spirv-tools-dev \
-    vulkan-utility-libraries-dev \
-    zlib1g-dev
-
-RUN \
-  echo "**** build eden ****" && \
-  mkdir -p /root-out/usr/bin && \
-  mkdir -p /root-out/usr/share/icons/hicolor/scalable/apps/ && \
-  EDEN_VERSION=$(curl -sX GET 'https://git.eden-emu.dev/api/v1/repos/eden-emu/eden/releases/latest' \
-    | jq -er '.tag_name') && \
-  git clone https://git.eden-emu.dev/eden-emu/eden.git && \
-  cd eden/ && \
-  git checkout -f ${EDEN_VERSION} && \
-  cmake -B build -GNinja \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=None \
-    -DCMAKE_C_FLAGS="-march=x86-64-v3 -O2" \
-    -DCMAKE_CXX_FLAGS="-march=x86-64-v3 -O2" \
-    -DUSE_DISCORD_PRESENCE=ON \
-    -DYUZU_ENABLE_LTO=OFF \
-    -DYUZU_USE_CPM=OFF \
-    -DCPM_USE_LOCAL_PACKAGES=ON \
-    -DYUZU_USE_BUNDLED_FFMPEG=OFF \
-    -DYUZU_USE_BUNDLED_SDL2=OFF \
-    -DYUZU_USE_EXTERNAL_SDL2=OFF \
-    -DYUZU_USE_BUNDLED_QT=OFF \
-    -DENABLE_QT_TRANSLATION=ON \
-    -DYUZU_USE_QT_MULTIMEDIA=ON \
-    -DYUZU_USE_QT_WEB_ENGINE=ON \
-    -Dhttplib_FORCE_BUNDLED=ON \
-    -DTITLE_BAR_FORMAT_RUNNING="eden | ${EDEN_VERSION} {}" \
-    -DTITLE_BAR_FORMAT_IDLE="eden ${EDEN_VERSION} {}" \
-    -DYUZU_TESTS=OFF \
-    -DDYNARMIC_TESTS=OFF \
-    -DBUILD_TESTING=OFF \
-    -Wno-dev && \
-  cmake --build build && \
-  mv \
-    build/bin/* \
-    /root-out/usr/bin/ && \
-  mv \
-    dist/icon_variations/base.svg \
-    /root-out/usr/share/icons/hicolor/scalable/apps/dev.eden_emu.eden.svg
-
-FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute AS cemu
-
-RUN \
-  echo "**** install build deps ****" && \
-  apt-get update && \
-  apt-get install -y \
-    build-essential \
-    cmake \
-    freeglut3-dev \
-    git \
-    libbluetooth-dev \
-    libboost-dev \
-    libboost-filesystem-dev \
-    libboost-nowide-dev \
-    libboost-program-options-dev \
-    libcubeb-dev \
-    libcurl4-openssl-dev \
-    libglm-dev \
-    libfmt-dev \
-    libgtk-3-dev \
-    libhidapi-dev \
-    libpng-dev \
-    libpugixml-dev \
-    libpulse-dev \
-    libsdl2-dev \
-    libssl-dev \
-    libusb-1.0-0-dev \
-    libwayland-dev \
-    libwxgtk3.2-dev \
-    libx11-dev \
-    libzip-dev \
-    libzstd-dev \
-    nasm \
-    ninja-build \
-    pkg-config \
-    python3 \
-    rapidjson-dev \
-    wayland-protocols \
-    zlib1g-dev
-
-RUN \
-  echo "**** build cemu ****" && \
-  CEMU_VERSION=$(curl -sX GET "https://api.github.com/repos/cemu-project/Cemu/releases/latest" \
-    | jq -er '.tag_name') && \
-  mkdir -p /root-out/usr/bin && \
-  mkdir -p /root-out/usr/share/Cemu && \
-  mkdir -p /root-out/usr/share/icons/hicolor/128x128/apps && \
-  git clone https://github.com/KhronosGroup/glslang.git && \
-  cd glslang && \
-  git checkout -f 14.2.0 && \
-  ./update_glslang_sources.py && \
-  cmake -S . -B build \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_CXX_FLAGS="-include cstdint" \
-    -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-    -G Ninja && \
-  cmake --build build && \
-  cmake --install build && \
-  cd .. && \
-  git clone https://github.com/cemu-project/Cemu.git && \
-  cd Cemu && \
-  echo "**** building cemu at ${CEMU_VERSION} ****" && \
-  git checkout -f ${CEMU_VERSION} && \
-  git submodule update --init --recursive \
-    dependencies/cubeb \
-    dependencies/ih264d \
-    dependencies/imgui \
-    dependencies/Vulkan-Headers \
-    dependencies/ZArchive && \
-  mkdir -p /usr/lib/x86_64-linux-gnu/cmake/hidapi && \
-  printf '%s\n' \
-    'add_library(hidapi::hidapi SHARED IMPORTED)' \
-    'set_target_properties(hidapi::hidapi PROPERTIES' \
-    '  IMPORTED_LOCATION "/usr/lib/x86_64-linux-gnu/libhidapi-hidraw.so"' \
-    '  INTERFACE_INCLUDE_DIRECTORIES "/usr/include/hidapi")' \
-    > /usr/lib/x86_64-linux-gnu/cmake/hidapi/hidapiConfig.cmake && \
-  sed -i \
-    's/set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE ON)/set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE OFF)/' \
-    CMakeLists.txt && \
-  cmake -S . -B build \
-    -DCMAKE_BUILD_TYPE=release \
-    -DCMAKE_C_COMPILER=/usr/bin/gcc \
-    -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
-    -DCMAKE_MAKE_PROGRAM=/usr/bin/ninja \
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-    -DENABLE_DISCORD_RPC=OFF \
-    -DENABLE_FERAL_GAMEMODE=OFF \
-    -DENABLE_VCPKG=OFF \
-    -G Ninja && \
-  cmake --build build && \
-  cp -r \
-    bin/* \
-    /root-out/usr/share/Cemu/ && \
-  mv \
-    /root-out/usr/share/Cemu/Cemu_release \
-    /root-out/usr/bin/Cemu && \
-  cp \
-    dist/linux/info.cemu.Cemu.png \
-    /root-out/usr/share/icons/hicolor/128x128/apps/info.cemu.Cemu.png
-
-# runtime stage
 FROM ghcr.io/linuxserver/baseimage-selkies:ubunturesolute
 
 # set version label
@@ -283,40 +32,23 @@ RUN \
     eduke32-shareware-episode \
     featherpad \
     gnome-keyring \
-    libsdl2-2.0-0 \
     jstest-gtk \
     libavcodec62 \
-    libbluetooth3 \
-    libboost-context1.90.0 \
-    libboost-filesystem1.90.0 \
-    libboost-nowide1.90.0 \
-    libboost-program-options1.90.0 \
-    libcubeb0 \
     libenet7 \
     libfaad2 \
-    libfmt10 \
     libgtk-3-0t64 \
     libgtk-3-common \
-    libhidapi-hidraw0 \
     liblz4-1 \
     libopenal1 \
     libopus0 \
     libpipewire-0.3 \
-    libpugixml1v5 \
-    libqt6charts6 \
     libqt6multimedia6 \
     libqt6svg6 \
-    libqt6webenginewidgets6 \
-    libquazip1-qt6-1t64 \
     libsdl2-2.0-0 \
     libshaderc1 \
-    libsimpleini1t64 \
     libssl3t64 \
     libusb-1.0-0 \
-    libwxgtk-gl3.2-1t64 \
-    libwxgtk3.2-1t64 \
     libxcb-cursor0 \
-    libzip5 \
     libzstd1 \
     p7zip-full \
     papirus-icon-theme \
@@ -374,9 +106,49 @@ RUN \
   mv \
     squashfs-root \
     /opt/azahar && \
+  echo "**** install cemu ****" && \
+  mkdir /tmp/cemu && \
+  CEMU_URL=$(curl -sX GET "https://api.github.com/repos/cemu-project/Cemu/releases/latest" \
+    | jq -er '.assets[] | select(.name | endswith("-x86_64.AppImage")) | .browser_download_url') && \
+  curl -o \
+    /tmp/cemu/cemu.app -L \
+    "${CEMU_URL}" && \
+  cd /tmp/cemu && \
+  chmod +x cemu.app && \
+  ./cemu.app --appimage-extract && \
+  mv \
+    squashfs-root \
+    /opt/cemu && \
+  rm -f \
+    /opt/cemu/usr/lib/libudev.so* && \
+  mkdir -p /usr/share/icons/hicolor/128x128/apps && \
   ln -s \
-    /opt/azahar/AppRun \
-    /usr/bin/azahar && \
+    /opt/cemu/usr/share/icons/hicolor/128x128/apps/info.cemu.Cemu.png \
+    /usr/share/icons/hicolor/128x128/apps/info.cemu.Cemu.png && \
+  echo "**** install dolphin ****" && \
+  mkdir /tmp/dolphin && \
+  for DOLPHIN_TAG in $(curl -sX GET "https://api.github.com/repos/dolphin-emu/dolphin/tags?per_page=50" \
+    | jq -er '[.[].name | select(test("^[0-9]{4}[a-z]?$"))] | sort | reverse | .[]'); do \
+    if curl -sfIL -o /dev/null "https://dl.dolphin-emu.org/releases/${DOLPHIN_TAG}/dolphin-${DOLPHIN_TAG}-x64.AppImage"; then \
+      DOLPHIN_VERSION="${DOLPHIN_TAG}"; \
+      break; \
+    fi; \
+  done && \
+  curl -fo \
+    /tmp/dolphin/dolphin.app -L \
+    "https://dl.dolphin-emu.org/releases/${DOLPHIN_VERSION}/dolphin-${DOLPHIN_VERSION}-x64.AppImage" && \
+  cd /tmp/dolphin && \
+  chmod +x dolphin.app && \
+  ./dolphin.app --appimage-extract && \
+  mv \
+    squashfs-root \
+    /opt/dolphin && \
+  rm -f \
+    /opt/dolphin/usr/lib/libudev.so* && \
+  mkdir -p /usr/share/icons/hicolor/scalable/apps && \
+  ln -s \
+    /opt/dolphin/usr/share/icons/hicolor/scalable/apps/dolphin-emu.svg \
+    /usr/share/icons/hicolor/scalable/apps/dolphin-emu.svg && \
   echo "**** install dosbox ****" && \
   if [ -z ${DSTAGING_VERSION+x} ]; then \
     DSTAGING_VERSION=$(curl -sX GET "https://api.github.com/repos/dosbox-staging/dosbox-staging/releases/latest" \
@@ -404,6 +176,24 @@ RUN \
   ln -s \
     /opt/duckstation/AppRun \
     /usr/bin/duckstation-qt && \
+  echo "**** install eden ****" && \
+  mkdir /tmp/eden && \
+  EDEN_URL=$(curl -sX GET "https://git.eden-emu.dev/api/v1/repos/eden-emu/eden/releases/latest" \
+    | jq -er '.assets[] | select(.name | test("^Eden-Linux-.*-amd64-clang-pgo\\.AppImage$")) | .browser_download_url') && \
+  curl -o \
+    /tmp/eden/eden.app -L \
+    "${EDEN_URL}" && \
+  cd /tmp/eden && \
+  chmod +x eden.app && \
+  ./eden.app --appimage-extract && \
+  mv \
+    AppDir \
+    /opt/eden && \
+  rm -f \
+    /opt/eden/shared/lib/libudev.so* && \
+  ln -s \
+    /opt/eden/dev.eden_emu.eden.svg \
+    /usr/share/icons/hicolor/scalable/apps/dev.eden_emu.eden.svg && \
   echo "**** install lichii ****" && \
   mkdir /tmp/lichii && \
   LICHII_URL=$(curl -sX GET "https://api.github.com/repos/zortos293/Lichii/releases" \
@@ -503,9 +293,6 @@ RUN \
   mv \
     AppDir \
     /opt/rpcs3 && \
-  ln -s \
-    /opt/rpcs3/AppRun \
-    /usr/bin/rpcs3 && \
   echo "**** install scummvm ****" && \
   apt-get install -y \
     scummvm && \
@@ -594,10 +381,7 @@ RUN \
     /var/lib/apt/lists/* \
     /var/tmp/* 
 
-# add local files and files from build stages
-COPY --from=cemu /root-out/ /
-COPY --from=dolphin /root-out/ /
-COPY --from=eden /root-out/ /
+# add local files
 COPY /root /
 COPY /root/defaults/desktop/ /usr/share/applications/
 
