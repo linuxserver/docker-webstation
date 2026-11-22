@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Icon=info.cemu.Cemu
-Exec=/usr/bin/Cemu
+Exec=env GDK_BACKEND=x11 /usr/bin/Cemu
 Terminal=false
 Type=Application
 Categories=Game;Emulator;

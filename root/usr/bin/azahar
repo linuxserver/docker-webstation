@@ -1,0 +1,7 @@
+#! /bin/bash
+
+# force xwayland, the qt wayland backend has ui rendering issues
+export QT_QPA_PLATFORM=xcb
+
+# apprun resolves its own dir from $0 so it cannot be symlinked
+exec /opt/azahar/AppRun "$@"
