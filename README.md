@@ -361,6 +361,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **19.11.26:** - Install Cemu, Dolphin and Eden from upstream AppImages instead of building from source, refresh desktop icons.
 * **21.08.26:** - Add Xenia Edge emulator.
 * **13.08.26:** - Add Azahar emulator.
 * **11.08.26:** - Add Cemu emulator.
