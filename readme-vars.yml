@@ -116,6 +116,7 @@ init_diagram: |
   "webstation:romm" <- Base Images
 # changelog
 changelogs:
+  - {date: "24.11.26:", desc: "Add xbased emulator."}
   - {date: "19.11.26:", desc: "Install Cemu, Dolphin and Eden from upstream AppImages instead of building from source, refresh desktop icons."}
   - {date: "21.08.26:", desc: "Add Xenia Edge emulator."}
   - {date: "13.08.26:", desc: "Add Azahar emulator."}

@@ -326,6 +326,22 @@ RUN \
   ln -s \
     /opt/xemu/AppRun \
     /usr/bin/xemu && \
+  echo "**** install xbased ****" && \
+  mkdir /tmp/xbased && \
+  XBASED_URL=$(curl -sX GET "https://api.github.com/repos/crazyriddler/xbased/releases/latest" \
+    | jq -er '.assets[] | select(.name | endswith("-x86_64.AppImage")) | .browser_download_url') && \
+  curl -o \
+    /tmp/xbased/xbased.app -L \
+    "${XBASED_URL}" && \
+  cd /tmp/xbased && \
+  chmod +x xbased.app && \
+  ./xbased.app --appimage-extract && \
+  mv \
+    squashfs-root \
+    /opt/xbased && \
+  ln -s \
+    /opt/xbased/AppRun \
+    /usr/bin/xbased && \
  echo "**** install esde ****" && \
   mkdir /tmp/esde && \
   curl -o \
