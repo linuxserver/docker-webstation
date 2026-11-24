@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=xbased
+GenericName=Xbox Emulator
+Comment=Original Xbox emulator
+Exec=/opt/xbased/AppRun %f
+Icon=/opt/xbased/usr/share/icons/hicolor/256x256/apps/xbased.png
+Terminal=false
+Categories=Game;Emulator;
+Keywords=xbox;emulator;
